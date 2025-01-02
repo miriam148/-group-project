@@ -1,13 +1,81 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title><user-details></user-details></title>
+    <link rel="stylesheet" href="./src/styles/style.css" />
   </head>
-  <div>hola buenos dias </div>
+
   <body>
+    <!-- <section class="user-information">
+
+      <h1>MI PERFIL</h1>
+  
+  
+      <div class=" information-list">
+        <p class="information">Username: ID NUMBER *INVISIBLE*</p>
+        <p class="information">Nombre: </p>
+        <p class="information">Apellido:</p>
+        <p class="information">Dirección:</p>
+        <p class="information">Teléfono:</p>
+        <p class="information">E-mail:</p>
+      </div>
+    
+  
+      <div class="subscription-select">
+        <p>Tipo de suscripcion</p>
+        <select id="subscription" name="subscription">
+          <p class="subscription-type">Tipo de suscripcion</p>
+          <option value="opcion">Selecciona una opción</option>
+          <option value="semanal">Semanal</option>
+          <option value="mensual">Mensual</option>
+          <option value="trimestral">Trimestral</option>
+        </select>
+      </div>
+  
+    
+<div class="button">
+  <button class="button-status">Activo</button>
+  <button class="button-save">Guardar</button>
+</div>
+    </section> -->
+
+    <div class="container">
+
+      <div class="card">
+        <div class="">
+          <button class="exit">X</button>
+          <p class="title">MI PERFIL</p>
+        </div>
+
+          <form action="">
+              <div class="card-list">
+                  <label class="sub_title" for="name">Nombre</label>
+                  <input placeholder="" class="card-style" type="text">
+              </div>
+              <div class="card-list">
+                <label class="sub_title" for="name">Apellidos</label>
+                <input placeholder="" class="card-style" type="text">
+            </div>
+              <div class="card-list">
+                  <label class="sub_title" for="email">E-mail</label>
+                  <input placeholder="" id="email" class="card-style" type="email">
+              </div>
+              <div class="card-list">
+                  <label class="sub_title" for="password">Dirección</label>
+                  <input placeholder="" id="password" class="card-style" type="password">
+              </div>
+              <div class="card-list">
+                <label class="sub_title" for="password">Telefono</label>
+                <input placeholder="" id="password" class="card-style" type="telefono">
+            </div>
+              <div class="button-end">
+                  <button class="button">ACTIVO</button>
+                  <button class="button">GUARDAR</button>
+              </div>
+          </div>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
   </body>

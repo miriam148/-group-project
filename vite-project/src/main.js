@@ -1,7 +1,7 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+// import './style.css'
+// import javascriptLogo from './javascript.svg'
+// import viteLogo from '/vite.svg'
+// import { setupCounter } from './counter.js'
 
 document.querySelector('#app').innerHTML = `
   <div>
@@ -21,4 +21,18 @@ document.querySelector('#app').innerHTML = `
   </div>
 `
 
-setupCounter(document.querySelector('#counter'))
+// setupCounter(document.querySelector('#counter'))
+
+
+//   // elemento select
+//   const selectElement = document.getElementById('subscription');
+
+//   selectElement.addEventListener('change', function() {
+//     if (this.value !== "") {
+//       const firstOption = this.querySelector('option[value=""]');
+//       firstOption.disabled = false;
+//     } else {
+//       const firstOption = this.querySelector('option[value=""]');
+//       firstOption.disabled = true;
+//     }
+//   });
