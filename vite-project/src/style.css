@@ -48,6 +48,7 @@ body {
 
 .input-group {
   margin-bottom: 15px;
+  padding: 20px;
 }
 
 .input-group label {
@@ -78,5 +79,5 @@ body {
 }
 
 .btn:hover {
-  background-color: lightgreen;
+  background-color:#fbd014 ;
 }
