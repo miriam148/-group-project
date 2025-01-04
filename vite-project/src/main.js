@@ -22,7 +22,7 @@ import { setupCounter } from './counter.js'
 // error.style.display = "none"
 // document.querySelector(".login-box").appendChild(error)
 
-function login() {
+function loginAdm () {
 
     
     const app = document.getElementById("app")
@@ -33,6 +33,7 @@ function login() {
 
     const logo = document.createElement("div")
     logo.textContent = "Rush"
+    logo.classList.add("logo")
 
     const loginBox = document.createElement("div")
     loginBox.classList.add("login-box")
@@ -56,7 +57,7 @@ function login() {
     inputGroup1.classList.add("input-group")
 
     const password = document.createElement("label")
-    password.textContent("Password")
+    password.textContent = "Password"
 
     const placeHolder1 = document.createElement("input")
     placeHolder1.type = "password"
@@ -64,7 +65,7 @@ function login() {
 
     const button = document.createElement("button")
     button.classList.add("btn")
-    button.textContent("Login")
+    button.textContent = "Login"
 
    
     header.appendChild(logo)
@@ -80,12 +81,11 @@ function login() {
     app.appendChild(header)
     app.appendChild(loginBox)
     
-
+   
 
 }
 
-
-login()
+loginAdm()
 
 
 
