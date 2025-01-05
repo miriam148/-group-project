@@ -1,4 +1,4 @@
-:root {
+/* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -93,4 +93,49 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+} */
+.basic-header{
+  background-color: #9c1717;
+  max-height: 400px;
+}
+.top-bar{
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 50px 30px 50px;
+}
+.title{
+  font-size: 20px;
+}
+
+.basic-footer{
+  background-color: #9c1717;
+  max-height: 900px;
+}
+.container-footer{
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 50px 30px 50px;
+}
+.lista-redes{
+  flex-direction: column;
+  gap: 10px;
+}
+
+/*EMPIEZO A TOQUETEAR EL PANEL PRINCIPAL*/
+.user{
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  gap: 40px;
+}
+.usersList{
+border: solid;
+padding: 5px;
+gap: 5px;
+}
+.usuario{
+  border: solid 1px;
+  display: flex;
+  padding: 10px;
+  gap: 35px;
 }
