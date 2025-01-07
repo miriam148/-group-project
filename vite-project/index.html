@@ -1,14 +1,80 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>Rush</title>
   </head>
-  <div>hola</div>
+  
   <body>
-    <div id="app"></div>
+    <header class="basic-header">
+      <div class="top-bar">
+        <img class="imagen-logo" src="src/imagen/logo.jpeg" alt="Imagen logo">
+        <h1 class="title">RUSH</h1>
+
+
+        <div class="opciones-menu">
+          <img src="src/imagen/lista menu.svg" alt="Lista menu">
+
+        </div>
+      </div>
+    </header>
+
+
+    <div id="app">
+      <div id="app1" class="container">
+        <!-- <header class="header">
+          <div class="logo">Rush</div>
+        </header> -->
+        <div class="login-box">
+          <h2>Acceso</h2>
+          <form>
+            <div class="input-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" placeholder="Introduce tu email" />
+            </div>
+            <div class="input-group">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                placeholder="Introduce tu contraseña"
+              />
+            </div>
+            <button id="button" type="submit" class="btn">Login</button>
+          </form>
+        </div> 
+      </div>
+
+    </div>
+
+    <footer class="basic-footer">
+      <div class="container-footer">
+        <div class="logo-title">
+        <img class="imagen-logo-footer" src="src/imagen/logo.jpeg" alt="Imagen logo footer">
+        <h2 class="title-footer">RUSH</h2>
+        </div>
+        <div class="container-lista">
+          <div class="container-logos">
+         <img src="src/imagen/insta logo.svg" alt="Logo Instagram">
+         <img src="src/imagen/facebook logo.svg" alt="Logo Facebook">
+         <img src="src/imagen/twitter logo.svg" alt="Logo Twitter">
+        </div>
+         <div class="container-lista2">
+          <ul class="lista-relleno">
+            <li class="lista1">¿Quienes somos?</li>
+            <li class="lista1">Contacto</li>
+            <li class="lista1">Blog</li>
+            <li class="lista1">Política de privacidad</li>
+            <li class="lista1">Términos y Condiciones</li>
+          </ul>
+          </div>
+      </div> 
+    
+      </footer>
+
+    
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
