@@ -1,24 +1,51 @@
 import './style.css'
 
 
+function addElementAp6() {
+  const containerAp6 = document.createElement('div');
+  containerAp6.classList.add('containerAdmin');
 
+  const divContainer = document.createElement('div');
+  divContainer.classList.add('user');
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+  containerAp6.appendChild(divContainer);
 
-setupCounter(document.querySelector('#counter'))
+  const usuarios = document.createElement('h2');
+  usuarios.classList.add('us')
+  usuarios.textContent = 'Usuarios';
+
+  const firstButton = document.createElement('button');
+  firstButton.classList.add('access');
+  firstButton.textContent = 'Nuevo Usuario';
+
+  const secondButton = document.createElement('button');
+  secondButton.classList.add('close');
+  secondButton.textContent = 'X';
+
+divContainer.appendChild(usuarios);
+divContainer.appendChild(firstButton);
+divContainer.appendChild(secondButton);
+
+const userList = document.createElement('div');
+userList.classList.add('userList');
+
+const usuario = document.createElement('div');
+usuario.classList.add('usuario');
+
+const nombreUsuario = document.createElement('h2');
+nombreUsuario.classList.add('nombre-usuario');
+nombreUsuario.textContent = 'Juan Pérez';
+
+const state = document.createElement('button');
+state.textContent = 'Activo/Inactivo';
+state.classList.add('state');
+
+usuario.appendChild(nombreUsuario);
+usuario.appendChild(state);
+userList.appendChild(usuario);
+containerAp6.appendChild(userList)
+
+document.body.appendChild(containerAp6);
+}
+
+addElementAp6();
