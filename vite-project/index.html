@@ -1,15 +1,31 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="src/style.css" />
     <title>Vite App</title>
   </head>
-  <div>hola</div>
-  <div>mundo</div>
   <body>
+    <!-- <div class="header">
+      <h1 class="title">Rush</h1>
+    </div> -->
     <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+    <div id="containerNewUser" class="containerUserDisable">
+      <select name="" id="selectorAdmin">
+        <option value="">Id</option>
+        <option value="usuario">Usuario</option>
+      </select>
+
+      <select name="" id="selector">
+        <option value="" selected>Tipo de suscripcion</option>
+        <option value="">Mensual</option>
+        <option value="">Semestral</option>
+        <option value="">Anual</option>
+      </select>
+      <div id="alertaContainer" class="alertaDisable"></div>
+    </div>
   </body>
+  <script type="module" src="src/main.js"></script>
 </html>
