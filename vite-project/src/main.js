@@ -26,18 +26,18 @@ const users = {
 function loginAdm () {
 
     
-    const app = document.getElementById("app")
-    app.classList.add("container")
+    const app = document.getElementById("app1")
+    app.classList.add("container-access-admin")
 
     const header = document.createElement("header")
-    header.classList.add("header")
+    header.classList.add("header-access-admin")
 
     const logo = document.createElement("div")
     logo.textContent = "Rush"
-    logo.classList.add("logo")
+    logo.classList.add("logo-access-admin")
 
     const loginBox = document.createElement("div")
-    loginBox.classList.add("login-box")
+    loginBox.classList.add("login-box-access-admin")
 
     const h2 = document.createElement("h2")
     h2.textContent = "Acceso administradores"
@@ -45,7 +45,7 @@ function loginAdm () {
     const form = document.createElement("form")
 
     const inputGroup = document.createElement("div")
-    inputGroup.classList.add("input-group")
+    inputGroup.classList.add("input-group-access-admin")
 
     const email = document.createElement("label")
     email.textContent = "Email"
@@ -55,7 +55,7 @@ function loginAdm () {
     placeHolder.placeholder = "Introduce tu email"
 
     const inputGroup1 = document.createElement("div")
-    inputGroup1.classList.add("input-group")
+    inputGroup1.classList.add("input-group-access-admin")
 
     const password = document.createElement("label")
     password.textContent = "Password"
@@ -65,7 +65,7 @@ function loginAdm () {
     placeHolder1.placeholder = "Introduce tu password"
 
     const button = document.createElement("button")
-    button.classList.add("btn")
+    button.classList.add("btn-access-admin")
     button.textContent = "Login"
 
    
