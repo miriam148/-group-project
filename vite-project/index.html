@@ -1,14 +1,71 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title><user-details></user-details></title>
+    <link rel="stylesheet" href="./src/styles/style.css" />
+
   </head>
-  <div>hola</div>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+
+  <body class="font">
+    <div class="container-details">
+      <div class="card-details">
+        <div class="top-details" id="top">
+          <button class="exit-details">X</button>
+          <p class="title-details">MI PERFIL</p>
+        </div>
+
+        <form id="formulario-details" class="formulario-details">
+          <div class="card-list-details">
+            <label class="sub_title" for="name">Nombre</label>
+            <input placeholder="" class="card-style-details" type="text" />
+          </div>
+          <div class="card-list-details">
+            <label class="sub_title" for="apellidos">Apellidos</label>
+            <input placeholder="" class="card-style-details" type="text" />
+          </div>
+          <div class="card-list-details">
+            <label class="sub_title" for="email">E-mail</label>
+            <input placeholder="" id="email" class="card-style-details" type="email" />
+          </div>
+          <div class="card-list-details">
+            <label class="sub_title" for="street">Dirección</label>
+            <input
+              placeholder=""
+              id="street"
+              class="card-style-details"
+              type="password"
+            />
+          </div>
+          <div class="card-list-details">
+            <label class="sub_title" for="phone">Teléfono</label>
+            <input placeholder="" id="phone" class="card-style-details" type="tel" />
+          </div>
+
+          <div class="card-list-details">
+            <label class="sub_title" for="subscription">Suscripción</label>
+            <input
+              placeholder=""
+              id="subscription"
+              class="card-style-details"
+              type="text"
+            />
+          </div>
+
+          <div class="button-end-details">
+            <button class="button-details">ACTIVO</button>
+            <button class="button-details">GUARDAR</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- <script
+      type="module"
+      src="/-group-project/vite-project/src/main.js"
+    ></script> -->
+    <script type="module" src="src/main.js"></script>
   </body>
 </html>

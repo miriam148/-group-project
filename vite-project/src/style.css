@@ -1,96 +1,132 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import "buttons.css";
+@import "header-footer";
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+/* .font {
+  font-family: 'Roboto', sans-serif;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
+} */
+/* Estilo general */
 body {
+  /* font-family: 'Roboto', sans-serif; */
+
+  font-family: Arial, sans-serif;
   margin: 0;
+  padding: 0;
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  /* background-color: #f0f0f0; */
+  /* background-image: url("img/ambitious-studio-rick-barrett-VJgIWZY7VC0-unsplash.jpg"); */
+  background-size:cover;
+  background-repeat: no-repeat;
+  
+
+}
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('img/ambitious-studio-rick-barrett-VJgIWZY7VC0-unsplash.jpg') center/cover no-repeat;
+  opacity: 0.7; 
+  z-index: -1; 
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
+/* .container {
+  background-image: url('img/ambitious-studio-rick-barrett-VJgIWZY7VC0-unsplash.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 1300px;
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
+} */
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #f7df1eaa);
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-button {
+.container-details {
+  width: 100%;
+  max-width: 600px;
+  background-color: #fff;
+  border: 1px solid #ccc;
   border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+
+
+/* Caja de login */
+.card-details-details {
+  padding: 20px;
 }
+
+.exit-details {
+  width: 4%;
+  padding: 4px;
+  background-color: #ffaa00;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+}
+
+.title-details {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.card-list-details {
+  margin-bottom: 15px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  
+}
+
+label {
+  display:flex;
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.card-style-details {
+  width: 80%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+
+BOTONES CSS
+.button-details {
+    width: 20%;
+    padding: 10px;
+    background-color: #ffaa00;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .button-end-details{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+  
+  .button-details:hover , .exit-details:hover {
+    background-color:#fbd014 ;
+  }
