@@ -1,11 +1,8 @@
 @import "buttons.css";
 @import "header-footer";
 
-/* .font {
-  font-family: 'Roboto', sans-serif;
 
-} */
-/* Estilo general */
+/* estilo general del contenedor*/
 body {
   /* font-family: 'Roboto', sans-serif; */
 
@@ -62,8 +59,8 @@ body::before {
 }
 
 .exit-details {
-  width: 4%;
-  padding: 4px;
+  width: 20px;
+  margin:10px;
   background-color: #ffaa00;
   color: white;
   border: none;
@@ -76,26 +73,31 @@ body::before {
 
 .title-details {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   color: #333;
+  font-size: 26px;
+
 }
 
 .card-list-details {
   margin-bottom: 15px;
-  padding: 5px;
+  margin-left: 15px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 
   
 }
 
 label {
-  display:flex;
   display: block;
-  font-size: 14px;
+  font-size: 16px;
+  margin-left: 15;
   margin-bottom: 5px;
   color: #555;
+  text-align: left;
+  
 }
 
 .card-style-details {
@@ -107,26 +109,4 @@ label {
 }
 
 
-BOTONES CSS
-.button-details {
-    width: 20%;
-    padding: 10px;
-    background-color: #ffaa00;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .button-end-details{
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-  }
-  
-  .button-details:hover , .exit-details:hover {
-    background-color:#fbd014 ;
-  }
+

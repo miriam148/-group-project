@@ -23,130 +23,94 @@
 
 // setupCounter(document.querySelector('#counter'))
 
-//   // elemento select
-//   const selectElement = document.getElementById('subscription');
 
-//   selectElement.addEventListener('change', function() {
-//     if (this.value !== "") {
-//       const firstOption = this.querySelector('option[value=""]');
-//       firstOption.disabled = false;
-//     } else {
-//       const firstOption = this.querySelector('option[value=""]');
-//       firstOption.disabled = true;
-//     }
-//   });
 
-function createCard() {
-  //creamos el contenedor padre
-  const containerDetails = document.createElement("div");
-  containerDetails.className = "container-details";
 
-  //contenedor del title y exit
-  const topDetails = document.createElement("div");
-  topDetails.className = "top-details";
+document.addEventListener('DOMContentLoaded', function () {
+  const containerDetails = document.querySelector('.container-details');
 
-  //contenedor top
-  const exitDetails = document.createElement("button");
-  exitDetails.id = "exit-details";
-  exitDetails.textContent = "X";
-  // exitDetails.addEventListener("click", () => goBack());
+  // Crear el div para los detalles (card-details)
+  const cardDetails = document.createElement('div');
+  cardDetails.classList.add('card-details');
 
-  const titleDetails = document.createElement("p");
-  titleDetails.className = "title-details";
-  titleDetails.textContent = "MI PERFIL";
+  // Crear la sección de la parte superior (top-details)
+  const topDetails = document.createElement('div');
+  topDetails.classList.add('top-details');
+  topDetails.id = 'top';
 
-  topDetails.appendChild(exitDetails);
+  // Crear el botón de cierre (exit-details)
+  const exitButton = document.createElement('button');
+  exitButton.classList.add('exit-details');
+  exitButton.textContent = 'X';
+
+  // Crear el título de la sección (title-details)
+  const titleDetails = document.createElement('p');
+  titleDetails.classList.add('title-details');
+  titleDetails.textContent = 'MI PERFIL';
+
+  // Agregar el botón y el título al topDetails
+  topDetails.appendChild(exitButton);
   topDetails.appendChild(titleDetails);
+
+  // Crear el formulario (formulario-details)
+  const formularioDetails = document.createElement('form');
+  formularioDetails.id = 'formulario-details';
+  formularioDetails.classList.add('formulario-details');
+
+  // Función para crear un campo de formulario (etiqueta + input)
+  function createInputField(labelText, inputType, inputId) {
+    const cardList = document.createElement('div');
+    cardList.classList.add('card-list-details');
+
+    const label = document.createElement('label');
+    label.classList.add('sub_title');
+    label.setAttribute('for', inputId);
+    label.textContent = labelText;
+
+    const input = document.createElement('input');
+    input.classList.add('card-style-details');
+    input.type = inputType;
+    input.id = inputId;
+    input.placeholder = '';
+
+    cardList.appendChild(label);
+    cardList.appendChild(input);
+
+    return cardList;
+  }
+
+  // Crear los campos del formulario
+  formularioDetails.appendChild(createInputField('Nombre', 'text', 'name'));
+  formularioDetails.appendChild(createInputField('Apellidos', 'text', 'apellidos'));
+  formularioDetails.appendChild(createInputField('E-mail', 'email', 'email'));
+  formularioDetails.appendChild(createInputField('Dirección', 'password', 'street'));
+  formularioDetails.appendChild(createInputField('Teléfono', 'tel', 'phone'));
+  formularioDetails.appendChild(createInputField('Suscripción', 'text', 'subscription'));
+
+  // Crear el contenedor de los botones (button-end-details)
+  const buttonEndDetails = document.createElement('div');
+  buttonEndDetails.classList.add('button-end-details');
+
+  // Crear los botones
+  const buttonActivo = document.createElement('button');
+  buttonActivo.classList.add('button-details');
+  buttonActivo.textContent = 'ACTIVO';
+
+  const buttonGuardar = document.createElement('button');
+  buttonGuardar.classList.add('button-details');
+  buttonGuardar.textContent = 'GUARDAR';
+
+  // Agregar los botones al contenedor
+  buttonEndDetails.appendChild(buttonActivo);
+  buttonEndDetails.appendChild(buttonGuardar);
+
+  // Agregar los botones al formulario
+  formularioDetails.appendChild(buttonEndDetails);
+
+  // Agregar los elementos al div principal (card-details)
   cardDetails.appendChild(topDetails);
+  cardDetails.appendChild(formularioDetails);
+
+  // Finalmente, agregar el div con los detalles al contenedor principal
   containerDetails.appendChild(cardDetails);
-
-  //contenedor formulario
-  const formularioDetails = document.createElement("formulario");
-  formularioDetails.id = "formulario";
-  formularioDetails.classList.add("formulario");
-
-  //label+input del formulario
-  const cardStyle1Details = document.createElement("div");
-  cardStyle1Details.classList.add("card-style");
-
-  const nameDetails = document.createElement("label");
-  nameDetails.textContent = "name";
-
-  const placeHolder1Details = document.createElement("input");
-  placeHolder1Details.type = "name";
-  placeHolder1Details.placeholder = "Introduce tu nombre";
-  //***********
-  const cardStyle2Details = document.createElement("div");
-  cardStyle2Details.classList.add("card-style");
-
-  const apellidosDetails = document.createElement("label");
-  apellidosDetails.textContent = "apellidos";
-
-  const placeHolder2Details = document.createElement("input");
-  placeHolder2Details.type = "apellidos";
-  placeHolder2Details.placeholder = "Introduce tu apellido";
-  //***********
-  const cardStyle3Details = document.createElement("div");
-  cardStyle3Details.classList.add("card-style");
-
-  const emailDetails = document.createElement("label");
-  emailDetails.textContent = "email";
-
-  const placeHolder3Details = document.createElement("input");
-  placeHolder3Details.type = "email";
-  placeHolder3Details.placeholder = "Introduce tu e-mail";
-  //***********
-  const cardStyle4Details = document.createElement("div");
-  cardStyle4Details.classList.add("card-style");
-
-  const direccionDetails = document.createElement("label");
-  direccionDetails.textContent = "name";
-
-  const placeHolder4Details = document.createElement("input");
-  placeHolder4Details.type = "direccion";
-  placeHolder4Details.placeholder = "Introduce tu dirección";
-  //***********
-
-  const cardStyle5Details = document.createElement("div");
-  cardStyle5Details.classList.add("card-style");
-
-  const telDetails = document.createElement("label");
-  telDetails.textContent = "tel";
-
-  const placeHolder5Details = document.createElement("input");
-  placeHolder5Details.type = "tel";
-  placeHolder5Details.placeholder = "Introduce tu teléfono";
-  //***********
-
-  const cardStyle6Details = document.createElement("div");
-  cardStyle6Details.classList.add("card-style");
-
-  const subscriptionDetails = document.createElement("label");
-  subscriptionDetails.textContent = "subscription";
-
-  const placeHolder6Details = document.createElement("input");
-  placeHolder6Details.type = "subscription";
-  placeHolder6Details.placeholder = "tipo de suscripcion";
-
-  //CONTENEDOR BOTONES FINAL
-  const buttonEndDetails = document.createElement("div");
-  buttonEndDetails.className = "buttonEnd";
-
-  //BOTONES FINAL
-  const activoDetails = document.createElement("button");
-  activoDetails.id = "button";
-  activoDetails.textContent = "ACTIVO";
-  activoDetails.addEventListener("click", () => activoInact());
-
-  const saveDetails = document.createElement("button");
-  saveDetails.id = "button";
-  saveDetails.textContent = "GUARDAR";
-  saveDetails.addEventListener("click", () => save());
-
-  // padre.appendChild(hijo)
-  // top.appendChild(exit)
-  // top.appendChild(title)
-  // card.appendChild(top)
-  // container.appendChild(card)
-}
-createCard()
+});
