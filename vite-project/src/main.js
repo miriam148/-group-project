@@ -1,27 +1,16 @@
 import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+
 
 /*hago un objeto con los correos de los admi y sus contraseñas*/
 const users = {
   "anam@gmail.com": "anam",
   "anag@gmail.com": "anag",
-  "emmanuel.com": "emmanuel",
+  "emmanuel@gmail.com": "emmanuel",
   "jesus@gmail.com": "jesus",
   "edey@gmail.com": "edey",
   "miriam@gmail.com": "miriam",
 };
 
-/*añado y creo elem en el dom*/
-// const emailInput = document.getElementById("email")
-// const passwordInput = document.getElementById("password")
-// const loginButton = document.querySelector(".btn")
-
-// const error = document.createElement("p")
-// error.textContent = "Correo o contraseña incorrectos"
-// error.style.display = "none"
-// document.querySelector(".login-box").appendChild(error)
 
 function loginAdm () {
 
