@@ -23,55 +23,52 @@
 
 // setupCounter(document.querySelector('#counter'))
 
-
-
-
-document.addEventListener('DOMContentLoaded', function () {
-  const containerDetails = document.querySelector('.container-details');
+document.addEventListener("DOMContentLoaded", function () {
+  const containerDetails = document.querySelector(".container-details");
 
   // Crear el div para los detalles (card-details)
-  const cardDetails = document.createElement('div');
-  cardDetails.classList.add('card-details');
+  const cardDetails = document.createElement("div");
+  cardDetails.classList.add("card-details");
 
   // Crear la sección de la parte superior (top-details)
-  const topDetails = document.createElement('div');
-  topDetails.classList.add('top-details');
-  topDetails.id = 'top';
+  const topDetails = document.createElement("div");
+  topDetails.classList.add("top-details");
+  topDetails.id = "top";
 
   // Crear el botón de cierre (exit-details)
-  const exitButton = document.createElement('button');
-  exitButton.classList.add('exit-details');
-  exitButton.textContent = 'X';
+  const exitButton = document.createElement("button");
+  exitButton.classList.add("exit-details");
+  exitButton.textContent = "X";
 
   // Crear el título de la sección (title-details)
-  const titleDetails = document.createElement('p');
-  titleDetails.classList.add('title-details');
-  titleDetails.textContent = 'MI PERFIL';
+  const titleDetails = document.createElement("p");
+  titleDetails.classList.add("title-details");
+  titleDetails.textContent = "MI PERFIL";
 
   // Agregar el botón y el título al topDetails
   topDetails.appendChild(exitButton);
   topDetails.appendChild(titleDetails);
 
   // Crear el formulario (formulario-details)
-  const formularioDetails = document.createElement('form');
-  formularioDetails.id = 'formulario-details';
-  formularioDetails.classList.add('formulario-details');
+  const formularioDetails = document.createElement("form");
+  formularioDetails.id = "formulario-details";
+  formularioDetails.classList.add("formulario-details");
 
   // Función para crear un campo de formulario (etiqueta + input)
   function createInputField(labelText, inputType, inputId) {
-    const cardList = document.createElement('div');
-    cardList.classList.add('card-list-details');
+    const cardList = document.createElement("div");
+    cardList.classList.add("card-list-details");
 
-    const label = document.createElement('label');
-    label.classList.add('sub_title');
-    label.setAttribute('for', inputId);
+    const label = document.createElement("label");
+    label.classList.add("sub_title");
+    label.setAttribute("for", inputId);
     label.textContent = labelText;
 
-    const input = document.createElement('input');
-    input.classList.add('card-style-details');
+    const input = document.createElement("input");
+    input.classList.add("card-style-details");
     input.type = inputType;
     input.id = inputId;
-    input.placeholder = '';
+    input.placeholder = "";
 
     cardList.appendChild(label);
     cardList.appendChild(input);
@@ -80,25 +77,31 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Crear los campos del formulario
-  formularioDetails.appendChild(createInputField('Nombre', 'text', 'name'));
-  formularioDetails.appendChild(createInputField('Apellidos', 'text', 'apellidos'));
-  formularioDetails.appendChild(createInputField('E-mail', 'email', 'email'));
-  formularioDetails.appendChild(createInputField('Dirección', 'password', 'street'));
-  formularioDetails.appendChild(createInputField('Teléfono', 'tel', 'phone'));
-  formularioDetails.appendChild(createInputField('Suscripción', 'text', 'subscription'));
+  formularioDetails.appendChild(createInputField("Nombre", "text", "name"));
+  formularioDetails.appendChild(
+    createInputField("Apellidos", "text", "apellidos")
+  );
+  formularioDetails.appendChild(createInputField("E-mail", "email", "email"));
+  formularioDetails.appendChild(
+    createInputField("Dirección", "password", "street")
+  );
+  formularioDetails.appendChild(createInputField("Teléfono", "tel", "phone"));
+  formularioDetails.appendChild(
+    createInputField("Suscripción", "text", "subscription")
+  );
 
   // Crear el contenedor de los botones (button-end-details)
-  const buttonEndDetails = document.createElement('div');
-  buttonEndDetails.classList.add('button-end-details');
+  const buttonEndDetails = document.createElement("div");
+  buttonEndDetails.classList.add("button-end-details");
 
   // Crear los botones
-  const buttonActivo = document.createElement('button');
-  buttonActivo.classList.add('button-details');
-  buttonActivo.textContent = 'ACTIVO';
+  const buttonActivo = document.createElement("button");
+  buttonActivo.classList.add("button-details");
+  buttonActivo.textContent = "ACTIVO";
 
-  const buttonGuardar = document.createElement('button');
-  buttonGuardar.classList.add('button-details');
-  buttonGuardar.textContent = 'GUARDAR';
+  const buttonGuardar = document.createElement("button");
+  buttonGuardar.classList.add("button-details");
+  buttonGuardar.textContent = "GUARDAR";
 
   // Agregar los botones al contenedor
   buttonEndDetails.appendChild(buttonActivo);
@@ -114,3 +117,13 @@ document.addEventListener('DOMContentLoaded', function () {
   // Finalmente, agregar el div con los detalles al contenedor principal
   containerDetails.appendChild(cardDetails);
 });
+
+
+
+
+//EVENTO BOTON EXIT PARA IR HACIA ATRAS
+//history.back retroce a la pagina anterior
+exitButton.addEventListener("click", () => {
+  history.back();
+});
+
