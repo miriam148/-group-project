@@ -94,6 +94,12 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 } */
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
 .basic-header{
   background-color: #9c1717;
   max-height: 400px;
@@ -103,37 +109,24 @@ button:focus-visible {
   justify-content: space-between;
   padding: 30px 50px 30px 50px;
 }
-.title{
-  font-size: 20px;
-}
 
-.basic-footer{
-  background-color: #9c1717;
-  max-height: 900px;
-}
-.container-footer{
-  display: flex;
-  justify-content: space-between;
-  padding: 30px 50px 30px 50px;
-}
-.lista-redes{
-  flex-direction: column;
-  gap: 10px;
-}
+
+
+
 
 /*EMPIEZO A TOQUETEAR EL PANEL PRINCIPAL*/
-.user{
+.user-admin{
   display: flex;
   align-items: center;
   padding: 20px;
   gap: 40px;
 }
-.usersList{
+.usersList-admin{
 border: solid;
 padding: 5px;
 gap: 5px;
 }
-.usuario{
+.usuario-admin{
   border: solid 1px;
   display: flex;
   padding: 10px;
@@ -141,14 +134,45 @@ gap: 5px;
 }
 
 /* alternancia de boton activo/inactivo */
-.state{
-  border-radius: 10px;
+.state-admin{
+  border-radius: 4px;
   cursor: pointer;
   background-color: rgba(245, 22, 22, 0.85);
+  display: block;
+  padding: 10px;
+  color: white;
+  border: none;
+  font-size: 16px;
 }
 
-.state-change{
-  border-radius: 10px;
+.button-mod-admin, .button-del-admin, .access-admin, .close-admin{
+  border-radius: 4px;
   cursor: pointer;
+  background-color: #ffaa00;
+  display: block;
+  padding: 10px;
+  color: white;
+  border: none;
+  font-size: 16px;
+}
+
+.state-change-admin{
+  border-radius: 4px;
+  cursor: pointer;
+  display: block;
+  padding: 10px;
+  color: white;
+  border: none;
+  font-size: 16px;
   background-color: rgba(19, 167, 16, 0.771);
+}
+
+
+.btn:hover {
+  background-color: lightgreen;
+}
+
+.us-admin{
+  font-size: 3.2em;
+  line-height: 1.1;
 }
