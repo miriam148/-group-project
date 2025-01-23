@@ -1,11 +1,8 @@
 @import "buttons.css";
-@import "header-footer";
 
 
 /* estilo general del contenedor*/
 body {
-  /* font-family: 'Roboto', sans-serif; */
-
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -13,33 +10,11 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  /* background-color: #f0f0f0; */
-  /* background-image: url("img/ambitious-studio-rick-barrett-VJgIWZY7VC0-unsplash.jpg"); */
   background-size:cover;
   background-repeat: no-repeat;
-  
-
-}
-body::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('img/ambitious-studio-rick-barrett-VJgIWZY7VC0-unsplash.jpg') center/cover no-repeat;
-  opacity: 0.7; 
-  z-index: -1; 
 }
 
-/* .container {
-  background-image: url('img/ambitious-studio-rick-barrett-VJgIWZY7VC0-unsplash.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  width: 1300px;
 
-} */
 
 .container-details {
   width: 100%;
@@ -52,24 +27,6 @@ body::before {
 }
 
 
-
-/* Caja de login */
-.card-details-details {
-  padding: 20px;
-}
-
-.exit-details {
-  width: 20px;
-  margin:10px;
-  background-color: #ffaa00;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-}
 
 .title-details {
   text-align: center;
@@ -109,4 +66,44 @@ label {
 }
 
 
+/* BUTTONS */
+.button-details {
+  width: 20%;
+  padding: 10px;
+  margin: 20px;
+  background-color: #ffaa00;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.button-end-details{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.button-details:hover , .exit-details:hover {
+  background-color:#fbd014 ;
+}
+
+.exit-details {
+  width: 20px;
+  margin:10px;
+  background-color: #ffaa00;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+}
