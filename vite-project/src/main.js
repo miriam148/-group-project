@@ -71,23 +71,33 @@ function loginAdm () {
     app.appendChild(header)
     app.appendChild(loginBox)
     
-   /*evento click */
+   //evento click con verificación de si existe el admin e integración back
+   //TENGO QUE METER LOS TOKENS????
 
- form.addEventListener("submit", (event) => {
-    event.preventDefault()
-
-    const emailValue = placeHolder.value.trim()
-    const passwordValue = placeHolder1.value.trim()
-
-
-    if (users[emailValue] === passwordValue) {
-        alert("acceso concedido")
-      
-    } else {
-      alert("correo o contraseña incorrectos");
+   form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+  
+    const emailValue = placeHolder.value.trim();
+    const passwordValue = placeHolder1.value.trim();
+  
+    const data = { email: emailValue, password: passwordValue };
+  
+    try {
+      const response = await callPostApi("http://localhost:3000/api/login", data);
+      if (response.success) {
+        if (response.role === "admin") {
+          alert("Acceso concedido: Eres administrador");
+        } else {
+          alert("No tienes permisos de administrador");
+        }
+      } else {
+        alert("Correo o contraseña incorrectos");
+      }
+    } catch (error) {
+      alert("Error al intentar iniciar sesión");
     }
   });
-
+ 
 }
 
 loginAdm()
@@ -97,3 +107,22 @@ loginAdm()
 
 
 
+// form.addEventListener("submit", (event) => {
+//   event.preventDefault()
+
+//   const emailValue = placeHolder.value.trim()
+//   const passwordValue = placeHolder1.value.trim()
+
+//   const user = users[emailValue]
+
+
+//   if (user && user.password === passwordValue) {
+//     if(user.role === "admin") {
+//       alert("acceso concedido")
+    
+//   } else {
+//     alert("acceso denegado");
+//   }
+// }
+
+// })
