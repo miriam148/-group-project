@@ -83,7 +83,7 @@ function loginAdm () {
     const data = { email: emailValue, password: passwordValue };
   
     try {
-      const response = await callPostApi("http://localhost:3000/api/login", data);
+      const response = await fetch("http://localhost:3000/api/login", data);
       if (response.success) {
         if (response.role === "admin") {
           alert("Acceso concedido: Eres administrador");
@@ -92,6 +92,11 @@ function loginAdm () {
         }
       } else {
         alert("Correo o contraseña incorrectos");
+      }
+      const result = await response.json()
+      const token = result.token
+      if( token ) {
+        //si existe token aqui se debe añadir la redirección a la landing o dnd sea
       }
     } catch (error) {
       alert("Error al intentar iniciar sesión");
