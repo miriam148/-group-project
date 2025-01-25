@@ -4,4 +4,11 @@ export default {
     build: {
         outDir: "../dist",
     },
+    server: {
+        https: true, // Habilitar HTTPS
+    },
 };
+
+
+
+  

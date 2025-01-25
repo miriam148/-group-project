@@ -7,6 +7,7 @@ function addElementAp6() {
 
   const divContainer = document.createElement('div');
   divContainer.classList.add('user-admin');
+  divContainer.id = 'user-admin';
 
   containerAp6.appendChild(divContainer);
 
@@ -31,6 +32,8 @@ userList.classList.add('userList-admin');
 
 const usuario = document.createElement('div');
 usuario.classList.add('usuario-admin');
+usuario.id = 'usuario-admin';
+
 
 const nombreUsuario = document.createElement('h2');
 nombreUsuario.classList.add('nombre-usuario-admin');
@@ -99,3 +102,44 @@ alertDelete.addEventListener('click', () =>
 
 
 // ejemplo funcion para unir con la parte de Ana G
+
+// Función para traer los datos y agregarlos a sus respectivos contenedores
+function cargarTodosLosUsuarios() {
+    // URL de la API donde están los datos (reemplaza con la URL real de tu servidor)
+    const url = "http://localhost:3000/api/getAllUsers"; // Reemplaza con el puerto correcto donde corre tu API.
+
+
+    // Hacemos la petición a la API
+    fetch(url)
+        .then(response => response.json()) // Convertimos la respuesta en JSON
+        .then(data => {
+            // Seleccionamos el contenedor principal donde vamos a agregar todos los usuarios
+            const contenedorUsuarios = document.getElementById('usuario-admin');
+            
+            // Limpiamos cualquier contenido previo en el contenedor
+            contenedorUsuarios.innerHTML = '';
+
+            // Iteramos sobre los datos para mostrar cada usuario en su propio contenedor
+            data.forEach(usuario => {
+                // Crear un div para cada usuario
+                const divUsuario = document.createElement('div');
+                divUsuario.classList.add('usuario');  // Agregar una clase al contenedor de cada usuario
+
+                // Agregar la información del usuario en el div
+                divUsuario.innerHTML = `
+                    <p>Nombre: ${usuario.name}</p>
+                    <p>ID: ${usuario.lastname}</p>
+                    <p>Email: ${usuario.email}</p>
+                `;
+
+                // Agregar el div de cada usuario al contenedor principal
+                contenedorUsuarios.appendChild(divUsuario);
+            });
+        })
+        .catch(error => {
+            console.error('Error al cargar los datos');
+        });
+}
+
+// Llamada para cargar todos los usuarios cuando la página esté lista
+document.addEventListener('DOMContentLoaded', cargarTodosLosUsuarios);
