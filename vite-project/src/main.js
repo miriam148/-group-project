@@ -87,8 +87,8 @@ function addLoginEvent(form) {
 
       if (response.ok) {
         if (result.user.role === "admin") {
-          // alert("Acceso concedido: Eres administrador");
-          window.location.href = "https://localhost:3000/api/getAllUsers"; // Cambiar
+          window.location.href = "/pruebaRuta.html";
+
         } else {
           alert("No tienes permisos de administrador");
         }
