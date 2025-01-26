@@ -87,7 +87,7 @@ function addLoginEvent(form) {
 
       if (response.ok) {
         if (result.user.role === "admin") {
-          window.location.href = "/pruebaRuta.html";
+          addElementAp6()
 
         } else {
           alert("No tienes permisos de administrador");
