@@ -87,7 +87,14 @@ function addLoginEvent(form) {
 
       if (response.ok) {
         if (result.user.role === "admin") {
-          addElementAp6()
+          // addElementAp6(); 
+          console.log(result)
+          const token = result.token;
+          console.log(token)
+          localStorage.setItem("token", token)
+          if(token){
+            addElementAp6
+          }
 
         } else {
           alert("No tienes permisos de administrador");

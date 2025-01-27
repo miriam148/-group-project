@@ -1,4 +1,7 @@
-function addElementAp6() {
+
+
+
+ function addElementAp6() {
     const containerAp6 = document.createElement('div');
     containerAp6.classList.add('container-admin');
   
