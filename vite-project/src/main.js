@@ -64,13 +64,17 @@ function createLoginForm() {
   return form; 
 }
 
+
+
 // Función para agregar eventos y manejar el login
 function addLoginEvent(form) {
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const emailValue = document.getElementById("email-input").value.trim();
-    const passwordValue = document.getElementById("password-input").value.trim();
+    const passwordValue = document
+      .getElementById("password-input")
+      .value.trim();
 
     const data = { email: emailValue, password: passwordValue };
 
@@ -87,15 +91,16 @@ function addLoginEvent(form) {
 
       if (response.ok) {
         if (result.user.role === "admin") {
-          // addElementAp6(); 
           console.log(result)
           const token = result.token;
-          console.log(token)
-          localStorage.setItem("token", token)
-          if(token){
-            addElementAp6
-          }
+          console.log(token);
+          localStorage.setItem("token", token);
 
+          if (token) {
+            const app = document.getElementById("app1");
+            app.innerHTML = "";
+            addElementAp6();
+          }
         } else {
           alert("No tienes permisos de administrador");
         }
@@ -116,3 +121,6 @@ function loginAdm() {
 }
 
 loginAdm();
+
+
+
