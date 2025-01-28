@@ -66,7 +66,7 @@ function createLoginForm() {
 
 
 
-// Función para agregar eventos y manejar el login
+// Función para agregar evento y manejar el login con llamada al back
 function addLoginEvent(form) {
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -78,7 +78,7 @@ function addLoginEvent(form) {
 
     const data = { email: emailValue, password: passwordValue };
 
-    try {
+    try { //llama a mi endpoint
       const response = await fetch("http://localhost:3000/api/login", {
         method: "POST",
         headers: {
@@ -89,17 +89,17 @@ function addLoginEvent(form) {
 
       const result = await response.json();
 
-      if (response.ok) {
-        if (result.user.role === "admin") {
+      if (response.ok) { //validaciones 
+        if (result.user.role === "admin") { //si es admin ok y coge token
           console.log(result)
           const token = result.token;
           console.log(token);
-          localStorage.setItem("token", token);
+          localStorage.setItem("token", token); //guardo token
 
           if (token) {
             const app = document.getElementById("app1");
-            app.innerHTML = "";
-            addElementAp6();
+            app.innerHTML = ""; //borra contenedor
+            addElementAp6(); //llama a pantalla suso
           }
         } else {
           alert("No tienes permisos de administrador");
