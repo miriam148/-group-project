@@ -2,6 +2,39 @@ import "./style.css";
 
 const API_URL = "http://localhost:3000";
 
+async function updateUser(id, updatedUser) {
+  // Obtén el token JWT (esto podría ser un token válido que tengas guardado en localStorage, cookies, etc.)
+  const token = localStorage.getItem("jwtToken");
+
+  // Si no hay token, no debería permitir hacer la actualización
+  if (!token) {
+    alert("No estás autenticado. Inicia sesión.");
+    return;
+  }
+
+  try {
+    const url = `${API_URL}/api/user/${id}`;
+    const response = await fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify(updatedUser),
+    });
+
+    if (!response.ok) {
+      throw new Error("Error al actualizar el usuario");
+    }
+
+    alert("Usuario actualizado correctamente");
+    loadUsers(); // Recarga la lista de usuarios
+  } catch (error) {
+    console.error(error);
+    alert("Error al actualizar el usuario");
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   const containerDetails = document.querySelector(".container-details");
 
@@ -60,21 +93,13 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   formularioDetails.appendChild(createInputField("Nombre", "text", "name"));
-  formularioDetails.appendChild(
-    createInputField("Apellidos", "text", "apellidos")
-  );
+  formularioDetails.appendChild(createInputField("Apellidos", "text", "apellidos"));
   formularioDetails.appendChild(createInputField("E-mail", "email", "email"));
-  formularioDetails.appendChild(
-    createInputField("Calle", "password", "street")
-  );
-  formularioDetails.appendChild(
-    createInputField("Código Postal", "password", "postal")
-  );
+  formularioDetails.appendChild(createInputField("Calle", "password", "street"));
+  formularioDetails.appendChild(createInputField("Código Postal", "password", "postal"));
   formularioDetails.appendChild(createInputField("Ciudad", "password", "city"));
   formularioDetails.appendChild(createInputField("Teléfono", "tel", "phone"));
-  formularioDetails.appendChild(
-    createInputField("Suscripción", "text", "subscription")
-  );
+  formularioDetails.appendChild(createInputField("Suscripción", "text", "subscription"));
 
   const buttonEndDetails = document.createElement("div");
   buttonEndDetails.classList.add("button-end-details");
@@ -107,6 +132,52 @@ document.addEventListener("DOMContentLoaded", function () {
   buttonGuardar.classList.add("button-details");
   buttonGuardar.textContent = "GUARDAR";
   buttonGuardar.style.display = "none";
+
+  buttonGuardar.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    // Obtener los nuevos valores del formulario
+    const updatedUser = {
+      name: nameField.value,
+      lastname: apellidosField.value,
+      email: emailField.value,
+      road: streetField.value,
+      postCode: postalField.value,
+      city: cityField.value,
+      phoneNumber: phoneField.value,
+      subscription: subscriptionField.value,
+    };
+
+    const changedValues = {
+      name: nameField.value !== originalValues.name,
+      apellidos: apellidosField.value !== originalValues.apellidos,
+      email: emailField.value !== originalValues.email,
+      street: streetField.value !== originalValues.street,
+      postal: postalField.value !== originalValues.postal,
+      city: cityField.value !== originalValues.city,
+      phone: phoneField.value !== originalValues.phone,
+      subscription: subscriptionField.value !== originalValues.subscription,
+    };
+    const anyChanges = Object.values(changedValues).includes(true);
+    if (anyChanges) {
+      alert("Cambios guardados exitosamente!");
+      updateUser(id, updatedUser); // Llamar a la función de actualización del usuario
+    } else {
+      console.error("Error al modificar los campos: No se han hecho cambios.");
+    }
+
+    nameField.disabled = true;
+    apellidosField.disabled = true;
+    emailField.disabled = true;
+    streetField.disabled = true;
+    postalField.disabled = true;
+    cityField.disabled = true;
+    phoneField.disabled = true;
+    subscriptionField.disabled = true;
+
+    buttonGuardar.style.display = "none";
+    buttonEditar.style.display = "inline-block";
+  });
 
   document.body.appendChild(exitButton);
   topDetails.appendChild(exitButton);
@@ -187,68 +258,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     buttonGuardar.style.display = "none";
     buttonEditar.style.display = "inline-block";
+
+    updateUser();
+  
   });
 });
 
-//LLAMADA DEL FRONT AL BACK
-
-async function updateUser(id) {
-  // pidiendo al usuario los datos nuevos
-  const newName = prompt("Nuevo nombre:");
-  const newLastname = prompt("Nuevo apellido:");
-  const newPhoneNumber = prompt("Nuevo número de teléfono:");
-  const newRoad = prompt("Nueva calle:");
-  const newPostCode = prompt("Nuevo código postal:");
-  const newCity = prompt("Nueva ciudad:");
-  const newEmail = prompt("Nuevo email:");
-
-  // crear el objeto para actualizar el usuario
-  const updatedUser = {
-    name: newName,
-    lastname: newLastname,
-    phoneNumber: newPhoneNumber,
-    road: newRoad,
-    postCode: newPostCode,
-    city: newCity,
-    email: newEmail,
-  };
-
-  try {
-    // URL del backend
-    const url = `${API_URL}/user/${id}`;
-    
-    // Llamamos a la función para realizar la solicitud PATCH
-    const updatedUserData = await callPatchApi(url, updatedUser);
-
-    // Mostrar mensaje de éxito y actualizar la interfaz de usuario
-    alert("Usuario actualizado correctamente");
-    console.log(updatedUserData); // Aquí puedes ver los datos actualizados si es necesario
-    loadUsers(); // Suponiendo que esta función recarga los usuarios actualizados
-  } catch (error) {
-    console.error(error);
-    alert("Error al actualizar el usuario");
-  }
-}
 
 
-// Función para realizar la solicitud PATCH
-const callPatchApi = async (url, data) => {
-  try {
-    const response = await fetch(url, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data), // Enviamos los datos como JSON
-    });
 
-    if (!response.ok) {
-      throw new Error("Error al actualizar el usuario");
-    }
-    return await response.json(); // Retornamos los datos de la respuesta si todo es correcto
-  } catch (error) {
-    console.error(error);
-    alert("Error al realizar la operación");
-  }
-};
-
-// Cargar los usuarios al iniciar la página
 window.onload = loadUsers;
+
