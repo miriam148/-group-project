@@ -1,9 +1,7 @@
 // import "./style.css";
-
 // const API_URL = "http://localhost:3000";
 
 async function updateUser(id, updatedUser) {
-  // Obtén el token JWT (esto podría ser un token válido que tengas guardado en localStorage, cookies, etc.)
   const token = localStorage.getItem("jwtToken");
 
   // Si no hay token, no debería permitir hacer la actualización
@@ -28,7 +26,7 @@ async function updateUser(id, updatedUser) {
     }
 
     alert("Usuario actualizado correctamente");
-    loadUsers(); // Recarga la lista de usuarios
+    loadUsers(); 
   } catch (error) {
     console.error(error);
     alert("Error al actualizar el usuario");
@@ -51,11 +49,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   exitButton.addEventListener("click", () => {
     try {
-      if (!containerAp6 || !containerDetails) {
-        throw new Error("No se encuentran los contenedores.");
+      if (!containerDetails) {
+        throw new Error("No se encuentra el contenedor.");
       }
       containerDetails.style.display = "none";
-      containerAp6.style.display = "block";
+      containerAp6.style.display = "block"; // Asegúrate de tener el contenedor 'containerAp6' correctamente definido.
       addElementAp6();
       console.log("Has vuelto a la página anterior");
     } catch (error) {
@@ -92,29 +90,32 @@ document.addEventListener("DOMContentLoaded", function () {
     return cardList;
   }
 
+  // Añadir los campos del formulario
   formularioDetails.appendChild(createInputField("Nombre", "text", "name"));
   formularioDetails.appendChild(createInputField("Apellidos", "text", "apellidos"));
   formularioDetails.appendChild(createInputField("E-mail", "email", "email"));
-  formularioDetails.appendChild(createInputField("Calle", "password", "street"));
-  formularioDetails.appendChild(createInputField("Código Postal", "password", "postal"));
-  formularioDetails.appendChild(createInputField("Ciudad", "password", "city"));
+  formularioDetails.appendChild(createInputField("Calle", "text", "street"));
+  formularioDetails.appendChild(createInputField("Código Postal", "text", "postal"));
+  formularioDetails.appendChild(createInputField("Ciudad", "text", "city"));
   formularioDetails.appendChild(createInputField("Teléfono", "tel", "phone"));
   formularioDetails.appendChild(createInputField("Suscripción", "text", "subscription"));
 
+  // Botón de Editar y Guardar
   const buttonEndDetails = document.createElement("div");
   buttonEndDetails.classList.add("button-end-details");
 
   const buttonEditar = document.createElement("button");
   buttonEditar.classList.add("button-details");
   buttonEditar.textContent = "EDITAR";
+  buttonEditar.type = "button";
+
+  const buttonGuardar = document.createElement("button");
+  buttonGuardar.classList.add("button-details");
+  buttonGuardar.textContent = "GUARDAR";
+  buttonGuardar.style.display = "none";
+
   buttonEditar.addEventListener("click", () => {
-    const isEditing = nameField.disabled === false;
-
-    if (isEditing) {
-      console.log("El formulario ya está en modo edición.");
-      return;
-    }
-
+    // Habilitar los campos para edición
     nameField.disabled = false;
     apellidosField.disabled = false;
     emailField.disabled = false;
@@ -127,11 +128,6 @@ document.addEventListener("DOMContentLoaded", function () {
     buttonEditar.style.display = "none";
     buttonGuardar.style.display = "inline-block";
   });
-
-  const buttonGuardar = document.createElement("button");
-  buttonGuardar.classList.add("button-details");
-  buttonGuardar.textContent = "GUARDAR";
-  buttonGuardar.style.display = "none";
 
   buttonGuardar.addEventListener("click", (event) => {
     event.preventDefault();
@@ -159,13 +155,15 @@ document.addEventListener("DOMContentLoaded", function () {
       subscription: subscriptionField.value !== originalValues.subscription,
     };
     const anyChanges = Object.values(changedValues).includes(true);
+
     if (anyChanges) {
       alert("Cambios guardados exitosamente!");
       updateUser(id, updatedUser); // Llamar a la función de actualización del usuario
     } else {
-      console.error("Error al modificar los campos: No se han hecho cambios.");
+      alert("No se han realizado cambios.");
     }
 
+    // Deshabilitar campos después de guardar
     nameField.disabled = true;
     apellidosField.disabled = true;
     emailField.disabled = true;
@@ -192,7 +190,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const app = document.querySelector("#app");
   app.appendChild(containerDetails);
 
-  //FORMULARIO
+  // Campos del formulario
   const nameField = document.getElementById("name");
   const apellidosField = document.getElementById("apellidos");
   const emailField = document.getElementById("email");
@@ -213,21 +211,21 @@ document.addEventListener("DOMContentLoaded", function () {
     subscription: subscriptionField.value,
   };
 
-  buttonEditar.addEventListener("click", () => {
-    nameField.disabled = false;
-    apellidosField.disabled = false;
-    emailField.disabled = false;
-    streetField.disabled = false;
-    postalField.disabled = false;
-    cityField.disabled = false;
-    phoneField.disabled = false;
-    subscriptionField.disabled = false;
+  // Acción para enviar el formulario (submit)
+  formularioDetails.addEventListener("submit", async (event) => {
+    event.preventDefault(); // Evitar el comportamiento predeterminado
 
-    buttonEditar.style.display = "none";
-    buttonGuardar.style.display = "inline-block";
-  });
+    const updatedUser = {
+      name: nameField.value,
+      lastname: apellidosField.value,
+      email: emailField.value,
+      road: streetField.value,
+      postCode: postalField.value,
+      city: cityField.value,
+      phoneNumber: phoneField.value,
+      subscription: subscriptionField.value,
+    };
 
-  buttonGuardar.addEventListener("click", () => {
     const changedValues = {
       name: nameField.value !== originalValues.name,
       apellidos: apellidosField.value !== originalValues.apellidos,
@@ -238,34 +236,14 @@ document.addEventListener("DOMContentLoaded", function () {
       phone: phoneField.value !== originalValues.phone,
       subscription: subscriptionField.value !== originalValues.subscription,
     };
+
     const anyChanges = Object.values(changedValues).includes(true);
 
     if (anyChanges) {
-      alert("Cambios guardados exitosamente!");
-      console.log("Cambio hecho:", changedValues);
+      alert("¡Datos actualizados!");
+      await updateUser(id, updatedUser); // Llamar a la función de actualización
     } else {
-      console.error("Error al modificar los campos: No se han hecho cambios.");
+      alert("No se detectaron cambios.");
     }
-
-    nameField.disabled = true;
-    apellidosField.disabled = true;
-    emailField.disabled = true;
-    streetField.disabled = true;
-    postalField.disabled = true;
-    cityField.disabled = true;
-    phoneField.disabled = true;
-    subscriptionField.disabled = true;
-
-    buttonGuardar.style.display = "none";
-    buttonEditar.style.display = "inline-block";
-
-    updateUser();
-  
   });
 });
-
-
-
-
-window.onload = loadUsers;
-
