@@ -1,6 +1,6 @@
-import "./style.css";
+// import "./style.css";
 
-const API_URL = "http://localhost:3000";
+// const API_URL = "http://localhost:3000";
 
 async function updateUser(id, updatedUser) {
   // Obtén el token JWT (esto podría ser un token válido que tengas guardado en localStorage, cookies, etc.)
