@@ -14,12 +14,12 @@ function addElementAp6() {
   usuarios.classList.add('us-admin')
   usuarios.textContent = 'Usuarios';
 
-//   usuarioDiv.addEventListener("click", () => {
-//     // Ocultar contenedor ap6 y mostrar contenedor detalles
-//     document.querySelector('.container-admin').style.display = "none";
-//     const containerDetails = document.querySelector("#containerDetails");
-//     containerDetails.style.display = "block";  // Mostrar contenedor de detalles
-//   });
+  usuarioDiv.addEventListener("click", () => {
+    // Ocultar contenedor ap6 y mostrar contenedor detalles
+    document.querySelector('.container-admin').style.display = "none";
+    const containerDetails = document.querySelector("#containerDetails");
+    containerDetails.style.display = "block";  // Mostrar contenedor de detalles
+  });
 
   const firstButton = document.createElement('button');
   firstButton.classList.add('access-admin');
@@ -80,12 +80,12 @@ function cargarTodosLosUsuarios() {
                 modifyButton.textContent = 'Modificar';
                 modifyButton.classList.add('button-mod-admin');
 
-                // modifyButton.addEventListener("click", () => {
-                //     deleteContainerAP6();
-                //     containNewUser.style.display = "block";
-                //     containerAp6.style.display = "none";
-                //     newUserCreate();
-                //   });
+                modifyButton.addEventListener("click", () => {
+                    deleteContainerAP6();
+                    containNewUser.style.display = "block";
+                    containerAp6.style.display = "none";
+                    newUserCreate();
+                  });
 
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = 'Eliminar';
