@@ -7,9 +7,9 @@ export default {
 
 };
 
-    server: {
-        https: true, // Habilitar HTTPS
-    }
+    // server: {
+    //     https: true, // Habilitar HTTPS
+    // },
     
 
 
