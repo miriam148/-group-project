@@ -1,7 +1,7 @@
 // export function cerrarAlerta() {
 //   const containerAlerta = document.querySelector("#alertaContainer");
 //   if (containerAlerta) {
-//     containerAlerta.style.display = "none"; // Ocultar la alerta
+//     containerAlerta.style.display = "none";
 //   }
 // }
 
@@ -21,11 +21,11 @@
 //     "Al pulsar en Aceptar los datos no se guardarán ¿Desea continuar?";
 
 //   const siBtn = document.createElement("button");
-//   siBtn.classList = "botonDetail";
+//   siBtn.classList = "buttonDetail";
 //   siBtn.textContent = "Aceptar";
 
 //   const cancelBtn = document.createElement("button");
-//   cancelBtn.classList = "botonDetail";
+//   cancelBtn.classList = "buttonDetail";
 //   cancelBtn.textContent = "Cancelar";
 
 //   aviso.appendChild(cancelBtn);
@@ -39,10 +39,10 @@
 //   siBtn.addEventListener("click", () => {
 //     alert("Se procederá a cancelar los datos");
 //     cerrarAlerta();
-//     //   borrarNewUserCreate();
-//     //   newUserCreate();
-//     // return containerAlerta
+//     deleteContainerNewUser();
+//     newUserCreate();
+//     return containerAlerta;
 //   });
 
-//   containerNewUser.appendChild(containerAlerta);
+//   containerUserNew.appendChild(containerAlerta);
 // }

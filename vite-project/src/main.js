@@ -1,30 +1,29 @@
 
 import './style.css'
 
-
 const API_URL = "http://localhost:3000";
 
 //CONTENEDORES GENERALES
-// const app1 = document.querySelector("#app1");
-// const containerAp6 = document.querySelector("#containerAp6");
-// const containerUserNew = document.querySelector("#containerNewUser");
-// const containerDetails = document.querySelector("#containerDetails");
+const app1 = document.querySelector("#app1");
+const containerAp6 = document.querySelector("#containerAp6");
+const containerUserNew = document.querySelector("#containerNewUser");
+const containerDetails = document.querySelector("#containerDetails");
 
 
 // FUNCIONES DE BORRADO
 
-// function deleteContainerAP6() {
-//   const container = document.querySelector("#containerAp6");
-//   container.innerHTML = "";
-// }
-// function deleteContainerNewUser() {
-//   const containerNU = document.querySelector("#containerNewUser");
-//   containerNU.innerHTML = "";
-// }
-// function deleteContainerDetails() {
-//   const container = document.querySelector("#containerDetails");
-//   container.innerHTML = "";
-// }
+function deleteContainerAP6() {
+  const container = document.querySelector("#containerAp6");
+  container.innerHTML = "";
+}
+function deleteContainerNewUser() {
+  const containerNU = document.querySelector("#containerNewUser");
+  containerNU.innerHTML = "";
+}
+function deleteContainerDetails() {
+  const container = document.querySelector("#containerDetails");
+  container.innerHTML = "";
+}
 
 function deleteContainerNewUser() {
   const containerNU = document.querySelector("#containerNewUser");
@@ -36,6 +35,7 @@ function deleteAlert() {
   container.innerHTML = "";
 }
 
+//FUNCIONES ALERTA
 function cerrarAlerta() {
   const containerAlerta = document.querySelector("#alertaContainer");
   if (containerAlerta) {
@@ -82,7 +82,7 @@ function alerta() {
     return containerAlerta;
   });
 
-  containerNewUser.appendChild(containerAlerta);
+  containerUserNew.appendChild(containerAlerta);
 }
 
 function buttonSaveNU(){
