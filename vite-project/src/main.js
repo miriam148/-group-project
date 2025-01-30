@@ -545,7 +545,6 @@ function displayUsers(users) {
 }
 
 
-
 async function updateUser(id, updatedUser) {
   const token = localStorage.getItem("jwtToken");
 
