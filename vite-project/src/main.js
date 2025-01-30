@@ -77,7 +77,6 @@ function alerta() {
   containerUserNew.appendChild(containerAlerta);
 }
 
-
 function buttonSaveNU(){
   const saveBtnNU = document.createElement("button");
   saveBtnNU.classList = "NU-btnBack";
@@ -341,7 +340,7 @@ function newUserCreate() {
 
 
 
-async function updateUser(id, updatedUser) {
+async function updateUser(idUser, updatedUser) {
   const token = localStorage.getItem("jwtToken");
 
   // Si no hay token, no debería permitir hacer la actualización
@@ -351,7 +350,8 @@ async function updateUser(id, updatedUser) {
   }
 
   try {
-    const url = `${API_URL}/users/${id}`;
+    const url = `${API_URL}/users/${idUser}`;
+
     const response = await fetch(url, {
       method: "PATCH",
       headers: {
@@ -366,12 +366,13 @@ async function updateUser(id, updatedUser) {
     }
 
     alert("Usuario actualizado correctamente");
-    loadUsers(); 
+    loadUsers();
   } catch (error) {
     console.error(error);
     alert("Error al actualizar el usuario");
   }
 }
+
 
 document.addEventListener("DOMContentLoaded", function () {
   const containerDetails = document.querySelector(".container-details");
@@ -498,7 +499,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (anyChanges) {
       alert("Cambios guardados exitosamente!");
-      updateUser(id, updatedUser); // Llamar a la función de actualización del usuario
+      updateUser(idUser, updatedUser); // Llamar a la función de actualización del usuario
     } else {
       alert("No se han realizado cambios.");
     }
@@ -581,12 +582,62 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (anyChanges) {
       alert("¡Datos actualizados!");
-      await updateUser(id, updatedUser); // Llamar a la función de actualización
+      await updateUser(idUser, updatedUser); // Llamar a la función de actualización
     } else {
       alert("No se detectaron cambios.");
     }
   });
 });
+
+
+function addElementAp6() {
+  const containerAp6 = document.querySelector('#containerAp6');
+  containerAp6.classList.add('containerAdmin');
+
+  const divContainer = document.createElement('div');
+  divContainer.classList.add('user-admin');
+  divContainer.id = 'user-admin';
+
+  containerAp6.appendChild(divContainer);
+
+  const usuarios = document.createElement('h2');
+  usuarios.classList.add('us-admin')
+  usuarios.textContent = 'Usuarios';
+
+  const firstButton = document.createElement('button');
+  firstButton.classList.add('access-admin');
+  firstButton.textContent = 'Nuevo Usuario';
+firstButton.addEventListener("click", ()=>{
+  deleteContainerAP6();
+  containerAp6.style.display = "none";
+  containerUserNew.style.display = "block";
+  newUserCreate()
+})
+
+
+  const secondButton = document.createElement('button');
+  secondButton.classList.add('close-admin');
+  secondButton.textContent = 'Log out';
+secondButton.addEventListener("click", ()=>{
+deleteContainerAP6(),
+containerAp6.style.display = "none";
+app1.style.display = "block";
+loginAdm()
+})
+  
+  divContainer.appendChild(usuarios);
+  divContainer.appendChild(firstButton);
+  divContainer.appendChild(secondButton);
+
+
+
+  // const userList = document.createElement('div');
+  // userList.classList.add('userList-admin');
+  
+  // containerAp6.appendChild(userList);
+  containerAp6.appendChild(divContainer);
+  app.appendChild(containerAp6);
+}
 
 function cargarTodosLosUsuarios() {
   // URL de la API donde están los datos
@@ -608,10 +659,13 @@ function cargarTodosLosUsuarios() {
               usuarioDiv.classList.add('usuario-admin');
               usuarioDiv.id = `usuario-${usuario._id}`;
               usuarioDiv.addEventListener("click", () => {
+                deleteContainerAP6();
                 // Ocultar contenedor ap6 y mostrar contenedor detalles
-                document.querySelector('.container-admin').style.display = "none";
-                const containerDetails = document.querySelector("#containerDetails");
+                // document.querySelector('.container-admin').style.display = "none";
+                // const containerDetails = document.querySelector("#containerDetails");
+                containerAp6.style.display = "none"
                 containerDetails.style.display = "block";  // Mostrar contenedor de detalles
+              containerDetails;
               });
 
               const name = document.createElement('p');
@@ -629,13 +683,7 @@ function cargarTodosLosUsuarios() {
               const modifyButton = document.createElement('button');
               modifyButton.textContent = 'Modificar';
               modifyButton.classList.add('button-mod-admin');
-
-              modifyButton.addEventListener("click", () => {
-                  deleteContainerAP6();
-                  containNewUser.style.display = "block";
-                  containerAp6.style.display = "none";
-                  newUserCreate();
-                });
+           
 
               const deleteButton = document.createElement('button');
               deleteButton.textContent = 'Eliminar';
@@ -678,39 +726,6 @@ function cargarTodosLosUsuarios() {
 }
 document.addEventListener('DOMContentLoaded', cargarTodosLosUsuarios);
 
-function addElementAp6() {
-  const containerAp6 = document.querySelector('#containerAp6');
-  containerAp6.classList.add('containerAdmin');
-
-  const divContainer = document.createElement('div');
-  divContainer.classList.add('user-admin');
-  divContainer.id = 'user-admin';
-
-  containerAp6.appendChild(divContainer);
-
-  const usuarios = document.createElement('h2');
-  usuarios.classList.add('us-admin')
-  usuarios.textContent = 'Usuarios';
-
-  const firstButton = document.createElement('button');
-  firstButton.classList.add('access-admin');
-  firstButton.textContent = 'Nuevo Usuario';
-
-  const secondButton = document.createElement('button');
-  secondButton.classList.add('close-admin');
-  secondButton.textContent = 'Log out';
-
-  divContainer.appendChild(usuarios);
-  divContainer.appendChild(firstButton);
-  divContainer.appendChild(secondButton);
-
-  // const userList = document.createElement('div');
-  // userList.classList.add('userList-admin');
-  
-  // containerAp6.appendChild(userList);
-  containerAp6.appendChild(divContainer);
-  app.appendChild(containerAp6);
-}
 
 // Función para crear los elementos del DOM
 function createLoginForm() {
@@ -728,7 +743,7 @@ function createLoginForm() {
   loginBox.classList.add("login-box-access-admin");
 
   const h2 = document.createElement("h2");
-  h2.textContent = "Acceso administradores";
+  h2.textContent = "Acceso";
 
   const form = document.createElement("form");
 
@@ -768,9 +783,8 @@ function createLoginForm() {
   inputGroup1.appendChild(password);
   inputGroup1.appendChild(passwordInput);
   form.appendChild(button);
-  app.appendChild(header);
-  app.appendChild(loginBox);
-
+  app1.appendChild(header);
+  app1.appendChild(loginBox);
   return form; 
 }
 
@@ -807,6 +821,8 @@ function addLoginEvent(form) {
           if (token) {
             const app = document.getElementById("app1");
             app.innerHTML = "";
+            app1.style.display = "none";
+    containerAp6.style.display = "block";
             addElementAp6();
           }
         } else {
