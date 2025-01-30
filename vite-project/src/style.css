@@ -1,140 +1,50 @@
-/* :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #f7df1eaa);
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-} */
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 }
 
-.basic-header{
+.basic-header {
   background-color: #9c1717;
   max-height: 400px;
 }
-.top-bar{
+
+.top-bar {
   display: flex;
   justify-content: space-between;
   padding: 30px 50px 30px 50px;
 }
 
-
-
-
-
-/*EMPIEZO A TOQUETEAR EL PANEL PRINCIPAL*/
-.user-admin{
+/* Panel principal */
+.user-admin {
   display: flex;
   align-items: center;
   padding: 20px;
   gap: 40px;
 }
-.usersList-admin{
-border: solid;
-padding: 5px;
-gap: 5px;
+
+.usersList-admin {
+  border: solid;
+  padding: 5px;
+  gap: 5px;
 }
-.usuario-admin{
+
+/* Estilos para cada usuario, tanto estático como los traídos desde la API */
+.usuario-admin, .usuario-div-admin {
   border: solid 1px;
   display: flex;
   padding: 10px;
   gap: 35px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* alternancia de boton activo/inactivo */
-.state-admin{
+/* alternancia de botón activo/inactivo */
+.state-admin {
   border-radius: 4px;
   cursor: pointer;
   background-color: rgba(245, 22, 22, 0.85);
@@ -145,7 +55,10 @@ gap: 5px;
   font-size: 16px;
 }
 
-.button-mod-admin, .button-del-admin, .access-admin, .close-admin{
+.button-mod-admin, 
+.button-del-admin, 
+.access-admin, 
+.close-admin {
   border-radius: 4px;
   cursor: pointer;
   background-color: #ffaa00;
@@ -156,7 +69,7 @@ gap: 5px;
   font-size: 16px;
 }
 
-.state-change-admin{
+.state-change-admin {
   border-radius: 4px;
   cursor: pointer;
   display: block;
@@ -167,12 +80,12 @@ gap: 5px;
   background-color: rgba(19, 167, 16, 0.771);
 }
 
-
-.btn:hover {
-  background-color: lightgreen;
+/* Efecto hover para botones */
+button:hover {
+  opacity: 0.8;
 }
 
-.us-admin{
+.us-admin {
   font-size: 3.2em;
   line-height: 1.1;
 }

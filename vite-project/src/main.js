@@ -1,6 +1,5 @@
 import './style.css'
 
-
 function addElementAp6() {
   const containerAp6 = document.createElement('div');
   containerAp6.classList.add('container-admin');
@@ -15,6 +14,13 @@ function addElementAp6() {
   usuarios.classList.add('us-admin')
   usuarios.textContent = 'Usuarios';
 
+//   usuarioDiv.addEventListener("click", () => {
+//     // Ocultar contenedor ap6 y mostrar contenedor detalles
+//     document.querySelector('.container-admin').style.display = "none";
+//     const containerDetails = document.querySelector("#containerDetails");
+//     containerDetails.style.display = "block";  // Mostrar contenedor de detalles
+//   });
+
   const firstButton = document.createElement('button');
   firstButton.classList.add('access-admin');
   firstButton.textContent = 'Nuevo Usuario';
@@ -23,123 +29,99 @@ function addElementAp6() {
   secondButton.classList.add('close-admin');
   secondButton.textContent = 'Log out';
 
-divContainer.appendChild(usuarios);
-divContainer.appendChild(firstButton);
-divContainer.appendChild(secondButton);
+  divContainer.appendChild(usuarios);
+  divContainer.appendChild(firstButton);
+  divContainer.appendChild(secondButton);
 
-const userList = document.createElement('div');
-userList.classList.add('userList-admin');
-
-const usuario = document.createElement('div');
-usuario.classList.add('usuario-admin');
-usuario.id = 'usuario-admin';
-
-
-const nombreUsuario = document.createElement('h2');
-nombreUsuario.classList.add('nombre-usuario-admin');
-nombreUsuario.textContent = 'Juan Pérez';
-
-const state = document.createElement('button');
-state.textContent = 'Inactivo';
-state.classList.add('state-admin');
-
-const buttonMod = document.createElement('button');
-buttonMod.textContent = 'Modificar';
-buttonMod.classList.add('button-mod-admin');
-
-const buttonDel = document.createElement('button');
-buttonDel.textContent = 'Eliminar';
-buttonDel.classList.add('button-del-admin');
-
-usuario.appendChild(nombreUsuario);
-usuario.appendChild(state);
-usuario.appendChild(buttonMod);
-usuario.appendChild(buttonDel);
-userList.appendChild(usuario);
-containerAp6.appendChild(userList)
-
-document.body.appendChild(containerAp6);
+  const userList = document.createElement('div');
+  userList.classList.add('userList-admin');
+  
+  containerAp6.appendChild(userList);
+  document.body.appendChild(containerAp6);
 }
 
 addElementAp6();
 
-//funcion llamada base de datos para recibir los nombres
-
-// funcion cree los contenedores de cada usuario, con datos concretos
-
-// boton activo/inactivo funcionallidad para que cambie el estado en la base de datos
-const stateButton = document.querySelector('.state-admin');
-
-stateButton.addEventListener('click', () => {
-    if (stateButton.textContent === 'Inactivo') {
-        stateButton.textContent = 'Activo';
-        alert('El estado cambió')
-    } else {
-        stateButton.textContent = 'Inactivo';
-    }
-});
-
-stateButton.addEventListener( 'click', () => {
-    if (stateButton.classList.contains('state-admin')) {
-        stateButton.classList.remove('state-admin');
-        stateButton.classList.add('state-change-admin');
-    } else {
-        stateButton.classList.remove('state-change-admin');
-        stateButton.classList.add('state-admin');
-    }
-})
-
-
-// añadir boton eliminar y modificar, crear alertas para cada uno
-const alertDelete = document.querySelector('.button-del-admin');
-
-alertDelete.addEventListener('click', () =>
-{
-    alert('¿Está seguro de que quiere eliminar este usuario?')
-})
-
-// añadir funcion para que al hacer click en cada usuario se muestre una vista detalle
-
-
-// ejemplo funcion para unir con la parte de Ana G
-
-// Función para traer los datos y agregarlos a sus respectivos contenedores
+// Función para cargar los usuarios desde la API
 function cargarTodosLosUsuarios() {
-    // URL de la API donde están los datos (reemplaza con la URL real de tu servidor)
-    const url = "http://localhost:3000/api/getAllUsers"; // Reemplaza con el puerto correcto donde corre tu API.
-
+    // URL de la API donde están los datos
+    const url = "http://localhost:3000/api/getAllUsers"; // Reemplaza con la URL correcta de tu API.
 
     // Hacemos la petición a la API
     fetch(url)
         .then(response => response.json()) // Convertimos la respuesta en JSON
         .then(data => {
-            // Seleccionamos el contenedor principal donde vamos a agregar todos los usuarios
-            const contenedorUsuarios = document.getElementById('usuario-admin');
+        
+            const contenedorUsuarios = document.querySelector('.userList-admin');
             
-            // Limpiamos cualquier contenido previo en el contenedor
+            
             contenedorUsuarios.innerHTML = '';
 
-            // Iteramos sobre los datos para mostrar cada usuario en su propio contenedor
             data.forEach(usuario => {
-                // Crear un div para cada usuario
-                const divUsuario = document.createElement('div');
-                divUsuario.classList.add('usuario');  // Agregar una clase al contenedor de cada usuario
+             
+                const usuarioDiv = document.createElement('div');
+                usuarioDiv.classList.add('usuario-admin');
+                usuarioDiv.id = `usuario-${usuario._id}`;
+                
 
-                // Agregar la información del usuario en el div
-                divUsuario.innerHTML = `
-                    <p>Nombre: ${usuario.name}</p>
-                    <p>ID: ${usuario.lastname}</p>
-                    <p>Email: ${usuario.email}</p>
-                `;
+                const name = document.createElement('p');
+                name.textContent = `Nombre: ${usuario.name}`;
+                const id = document.createElement('p');
+                id.textContent = `ID: ${usuario._id}`;
+                const email = document.createElement('p');
+                email.textContent = `Email: ${usuario.email}`;
 
-                // Agregar el div de cada usuario al contenedor principal
-                contenedorUsuarios.appendChild(divUsuario);
+                // Crear los botones
+                const stateButton = document.createElement('button');
+                stateButton.textContent = 'Inactivo';
+                stateButton.classList.add('state-admin');
+
+                const modifyButton = document.createElement('button');
+                modifyButton.textContent = 'Modificar';
+                modifyButton.classList.add('button-mod-admin');
+
+                // modifyButton.addEventListener("click", () => {
+                //     deleteContainerAP6();
+                //     containNewUser.style.display = "block";
+                //     containerAp6.style.display = "none";
+                //     newUserCreate();
+                //   });
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Eliminar';
+                deleteButton.classList.add('button-del-admin');
+
+           
+                usuarioDiv.appendChild(name);
+                usuarioDiv.appendChild(id);
+                usuarioDiv.appendChild(email);
+                usuarioDiv.appendChild(stateButton);
+                usuarioDiv.appendChild(modifyButton);
+                usuarioDiv.appendChild(deleteButton);
+
+                contenedorUsuarios.appendChild(usuarioDiv);
+
+                stateButton.addEventListener('click', () => {
+                    if (stateButton.textContent === 'Inactivo') {
+                        stateButton.textContent = 'Activo';
+                        alert('El estado cambió');
+                    } else {
+                        stateButton.textContent = 'Inactivo';
+                    }
+                });
+
+                // Agregar funcionalidad al botón de eliminar usuario
+                deleteButton.addEventListener('click', () => {
+                    if (confirm('¿Está seguro de que quiere eliminar este usuario?')) {
+                        // Aquí deberías agregar la lógica para eliminar el usuario
+                        alert('Usuario eliminado');
+                    }
+                });
+
             });
         })
         .catch(error => {
-            console.error('Error al cargar los datos');
+            console.error('Error al cargar los datos', error);
         });
 }
-
-// Llamada para cargar todos los usuarios cuando la página esté lista
 document.addEventListener('DOMContentLoaded', cargarTodosLosUsuarios);
