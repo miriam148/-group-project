@@ -1,131 +1,10 @@
 
-import './style.css'
+// import './style.css'
 
-
-// Función para crear los elementos del DOM
-function createLoginForm() {
-  const app = document.getElementById("app1");
-  app.classList.add("container-access-admin");
-
-  const header = document.createElement("header");
-  header.classList.add("header-access-admin");
-
-  const logo = document.createElement("div");
-  logo.textContent = "Rush";
-  logo.classList.add("logo-access-admin");
-
-  const loginBox = document.createElement("div");
-  loginBox.classList.add("login-box-access-admin");
-
-  const h2 = document.createElement("h2");
-  h2.textContent = "Acceso administradores";
-
-  const form = document.createElement("form");
-
-  const inputGroup = document.createElement("div");
-  inputGroup.classList.add("input-group-access-admin");
-
-  const email = document.createElement("label");
-  email.textContent = "Email";
-
-  const emailInput = document.createElement("input");
-  emailInput.type = "email";
-  emailInput.placeholder = "Introduce tu email";
-  emailInput.id = "email-input";
-
-  const inputGroup1 = document.createElement("div");
-  inputGroup1.classList.add("input-group-access-admin");
-
-  const password = document.createElement("label");
-  password.textContent = "Password";
-
-  const passwordInput = document.createElement("input");
-  passwordInput.type = "password";
-  passwordInput.placeholder = "Introduce tu password";
-  passwordInput.id = "password-input";
-
-  const button = document.createElement("button");
-  button.classList.add("btn-access-admin");
-  button.textContent = "Login";
-
-  header.appendChild(logo);
-  loginBox.appendChild(h2);
-  loginBox.appendChild(form);
-  form.appendChild(inputGroup);
-  inputGroup.appendChild(email);
-  inputGroup.appendChild(emailInput);
-  form.appendChild(inputGroup1);
-  inputGroup1.appendChild(password);
-  inputGroup1.appendChild(passwordInput);
-  form.appendChild(button);
-  app.appendChild(header);
-  app.appendChild(loginBox);
-
-  return form; 
-}
-
-
-
-// Función para agregar eventos y manejar el login
-function addLoginEvent(form) {
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-    const emailValue = document.getElementById("email-input").value.trim();
-    const passwordValue = document
-      .getElementById("password-input")
-      .value.trim();
-
-    const data = { email: emailValue, password: passwordValue };
-
-    try {
-      const response = await fetch("http://localhost:3000/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        if (result.user.role === "admin") {
-          console.log(result)
-          const token = result.token;
-          console.log(token);
-          localStorage.setItem("token", token);
-
-          if (token) {
-            const app = document.getElementById("app1");
-            app.innerHTML = "";
-            addElementAp6();
-          }
-        } else {
-          alert("No tienes permisos de administrador");
-        }
-      } else {
-        alert("Correo o contraseña incorrectos");
-      }
-    } catch (error) {
-      alert("Error al intentar iniciar sesión");
-      console.error(error);
-    }
-  });
-}
-
-// Inicializar las funciones
-function loginAdm() {
-  const form = createLoginForm(); // Crea el formulario
-  addLoginEvent(form); // Agrega el evento de login
-}
-
-loginAdm();
-
-
-const API_URL = "http://localhost:3000";
+const API_URL = "http://localhost:3000/api";
 
 //CONTENEDORES GENERALES
+const app = document.querySelector("#app")
 const app1 = document.querySelector("#app1");
 const containerAp6 = document.querySelector("#containerAp6");
 const containerUserNew = document.querySelector("#containerNewUser");
@@ -138,15 +17,6 @@ function deleteContainerAP6() {
   const container = document.querySelector("#containerAp6");
   container.innerHTML = "";
 }
-function deleteContainerNewUser() {
-  const containerNU = document.querySelector("#containerNewUser");
-  containerNU.innerHTML = "";
-}
-function deleteContainerDetails() {
-  const container = document.querySelector("#containerDetails");
-  container.innerHTML = "";
-}
-
 function deleteContainerNewUser() {
   const containerNU = document.querySelector("#containerNewUser");
   containerNU.innerHTML = "";
@@ -206,6 +76,7 @@ function alerta() {
 
   containerUserNew.appendChild(containerAlerta);
 }
+
 
 function buttonSaveNU(){
   const saveBtnNU = document.createElement("button");
@@ -274,7 +145,7 @@ function buttonSaveNU(){
         subscription: subscriptionNewUserInput,
         role: roleNewUserInput,
       };
-      const url = `${API_URL}/api/signup`;
+      const url = `${API_URL}/signup`;
       const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -468,78 +339,6 @@ function newUserCreate() {
   app.appendChild(containerNU);
 }
 
-newUserCreate();
-
-// Eliminar usuario
-async function deleteUser(userId) {
-  try {
-    const token = localStorage.getItem("token");
-    const response = await fetch(`${API_URL}/api/users/${userId}`, {
-      method: "DELETE",
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json"
-      }
-    });
-
-    if (response.ok) {
-      alert("Usuario eliminado correctamente");
-      // Recargar la lista de usuarios o actualizar la vista
-      addElementAp6(); // Asumiendo que esta función actualiza la lista de usuarios
-    } else {
-      const error = await response.json();
-      alert(error.message || "Error al eliminar el usuario");
-    }
-  } catch (error) {
-    console.error("Error al eliminar usuario:", error);
-    alert("Error al intentar eliminar el usuario");
-  }
-}
-
-function createDeleteButton(userId) {
-  const deleteBtn = document.createElement("button");
-  deleteBtn.classList.add("NU-btnBack");
-  deleteBtn.textContent = "Eliminar";
-  
-  deleteBtn.addEventListener("click", async () => {
-    if (confirm("¿Está seguro de que desea eliminar este usuario?")) {
-      await deleteUser(userId);
-    }
-  });
-  
-  return deleteBtn;
-}
-
-// Modificar la función que muestra los usuarios para incluir el botón de eliminar
-function displayUsers(users) {
-  const userList = document.createElement("div");
-  userList.classList.add("user-list");
-
-  users.forEach(user => {
-    const userCard = document.createElement("div");
-    userCard.classList.add("user-card");
-    
-    // Información del usuario
-    const userInfo = document.createElement("div");
-    userInfo.classList.add("user-info");
-    userInfo.innerHTML = `
-      <p><strong>Nombre:</strong> ${user.name} ${user.lastname}</p>
-      <p><strong>Email:</strong> ${user.email}</p>
-      <p><strong>Teléfono:</strong> ${user.phoneNumber}</p>
-    `;
-    
-    // Contenedor de acciones
-    const actions = document.createElement("div");
-    actions.classList.add("user-actions");
-    actions.appendChild(createDeleteButton(user.id));
-    
-    userCard.appendChild(userInfo);
-    userCard.appendChild(actions);
-    userList.appendChild(userCard);
-  });
-
-  return userList;
-}
 
 
 async function updateUser(id, updatedUser) {
@@ -552,7 +351,7 @@ async function updateUser(id, updatedUser) {
   }
 
   try {
-    const url = `${API_URL}/api/user/${id}`;
+    const url = `${API_URL}/users/${id}`;
     const response = await fetch(url, {
       method: "PATCH",
       headers: {
@@ -789,6 +588,95 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+function cargarTodosLosUsuarios() {
+  // URL de la API donde están los datos
+  const url = `${API_URL}/users`; // Reemplaza con la URL correcta de tu API.
+
+  // Hacemos la petición a la API
+  fetch(url)
+      .then(response => response.json()) // Convertimos la respuesta en JSON
+      .then(data => {
+      
+          // const contenedorUsuarios = document.querySelector('.userList-admin');
+          const contenedorUsuarios = document.createElement('div');
+          
+          contenedorUsuarios.innerHTML = '';
+
+          data.forEach(usuario => {
+           
+              const usuarioDiv = document.createElement('div');
+              usuarioDiv.classList.add('usuario-admin');
+              usuarioDiv.id = `usuario-${usuario._id}`;
+              usuarioDiv.addEventListener("click", () => {
+                // Ocultar contenedor ap6 y mostrar contenedor detalles
+                document.querySelector('.container-admin').style.display = "none";
+                const containerDetails = document.querySelector("#containerDetails");
+                containerDetails.style.display = "block";  // Mostrar contenedor de detalles
+              });
+
+              const name = document.createElement('p');
+              name.textContent = `Nombre: ${usuario.name}`;
+              const id = document.createElement('p');
+              id.textContent = `ID: ${usuario._id}`;
+              const email = document.createElement('p');
+              email.textContent = `Email: ${usuario.email}`;
+
+              // Crear los botones
+              const stateButton = document.createElement('button');
+              stateButton.textContent = 'Inactivo';
+              stateButton.classList.add('state-admin');
+
+              const modifyButton = document.createElement('button');
+              modifyButton.textContent = 'Modificar';
+              modifyButton.classList.add('button-mod-admin');
+
+              modifyButton.addEventListener("click", () => {
+                  deleteContainerAP6();
+                  containNewUser.style.display = "block";
+                  containerAp6.style.display = "none";
+                  newUserCreate();
+                });
+
+              const deleteButton = document.createElement('button');
+              deleteButton.textContent = 'Eliminar';
+              deleteButton.classList.add('button-del-admin');
+
+         
+              usuarioDiv.appendChild(name);
+              usuarioDiv.appendChild(id);
+              usuarioDiv.appendChild(email);
+              usuarioDiv.appendChild(stateButton);
+              usuarioDiv.appendChild(modifyButton);
+              usuarioDiv.appendChild(deleteButton);
+
+              contenedorUsuarios.appendChild(usuarioDiv);
+
+              stateButton.addEventListener('click', () => {
+                  if (stateButton.textContent === 'Inactivo') {
+                      stateButton.textContent = 'Activo';
+                      alert('El estado cambió');
+                  } else {
+                      stateButton.textContent = 'Inactivo';
+                  }
+              });
+
+              // Agregar funcionalidad al botón de eliminar usuario
+              deleteButton.addEventListener('click', () => {
+                  if (confirm('¿Está seguro de que quiere eliminar este usuario?')) {
+                      // Aquí deberías agregar la lógica para eliminar el usuario
+                      alert('Usuario eliminado');
+                  }
+              });
+
+              containerAp6.appendChild(contenedorUsuarios);
+              app.appendChild(containerAp6);
+          });
+      })
+      .catch(error => {
+          console.error('Error al cargar los datos', error);
+      });
+}
+document.addEventListener('DOMContentLoaded', cargarTodosLosUsuarios);
 
 function addElementAp6() {
   const containerAp6 = document.querySelector('#containerAp6');
@@ -804,13 +692,6 @@ function addElementAp6() {
   usuarios.classList.add('us-admin')
   usuarios.textContent = 'Usuarios';
 
-  usuarioDiv.addEventListener("click", () => {
-    // Ocultar contenedor ap6 y mostrar contenedor detalles
-    document.querySelector('.container-admin').style.display = "none";
-    const containerDetails = document.querySelector("#containerDetails");
-    containerDetails.style.display = "block";  // Mostrar contenedor de detalles
-  });
-
   const firstButton = document.createElement('button');
   firstButton.classList.add('access-admin');
   firstButton.textContent = 'Nuevo Usuario';
@@ -823,94 +704,204 @@ function addElementAp6() {
   divContainer.appendChild(firstButton);
   divContainer.appendChild(secondButton);
 
-  const userList = document.createElement('div');
-  userList.classList.add('userList-admin');
+  // const userList = document.createElement('div');
+  // userList.classList.add('userList-admin');
   
-  containerAp6.appendChild(userList);
+  // containerAp6.appendChild(userList);
+  containerAp6.appendChild(divContainer);
   app.appendChild(containerAp6);
 }
 
+// Función para crear los elementos del DOM
+function createLoginForm() {
+  const app = document.getElementById("app1");
+  app.classList.add("container-access-admin");
 
-// Función para cargar los usuarios desde la API
-function cargarTodosLosUsuarios() {
-    // URL de la API donde están los datos
-    const url = "http://localhost:3000/api/getAllUsers"; // Reemplaza con la URL correcta de tu API.
+  const header = document.createElement("header");
+  header.classList.add("header-access-admin");
 
-    // Hacemos la petición a la API
-    fetch(url)
-        .then(response => response.json()) // Convertimos la respuesta en JSON
-        .then(data => {
-        
-            const contenedorUsuarios = document.querySelector('.userList-admin');
-            
-            
-            contenedorUsuarios.innerHTML = '';
+  const logo = document.createElement("div");
+  logo.textContent = "Rush";
+  logo.classList.add("logo-access-admin");
 
-            data.forEach(usuario => {
-             
-                const usuarioDiv = document.createElement('div');
-                usuarioDiv.classList.add('usuario-admin');
-                usuarioDiv.id = `usuario-${usuario._id}`;
-                
+  const loginBox = document.createElement("div");
+  loginBox.classList.add("login-box-access-admin");
 
-                const name = document.createElement('p');
-                name.textContent = `Nombre: ${usuario.name}`;
-                const id = document.createElement('p');
-                id.textContent = `ID: ${usuario._id}`;
-                const email = document.createElement('p');
-                email.textContent = `Email: ${usuario.email}`;
+  const h2 = document.createElement("h2");
+  h2.textContent = "Acceso administradores";
 
-                // Crear los botones
-                const stateButton = document.createElement('button');
-                stateButton.textContent = 'Inactivo';
-                stateButton.classList.add('state-admin');
+  const form = document.createElement("form");
 
-                const modifyButton = document.createElement('button');
-                modifyButton.textContent = 'Modificar';
-                modifyButton.classList.add('button-mod-admin');
+  const inputGroup = document.createElement("div");
+  inputGroup.classList.add("input-group-access-admin");
 
-                modifyButton.addEventListener("click", () => {
-                    deleteContainerAP6();
-                    containNewUser.style.display = "block";
-                    containerAp6.style.display = "none";
-                    newUserCreate();
-                  });
+  const email = document.createElement("label");
+  email.textContent = "Email";
 
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = 'Eliminar';
-                deleteButton.classList.add('button-del-admin');
+  const emailInput = document.createElement("input");
+  emailInput.type = "email";
+  emailInput.placeholder = "Introduce tu email";
+  emailInput.id = "email-input";
 
-           
-                usuarioDiv.appendChild(name);
-                usuarioDiv.appendChild(id);
-                usuarioDiv.appendChild(email);
-                usuarioDiv.appendChild(stateButton);
-                usuarioDiv.appendChild(modifyButton);
-                usuarioDiv.appendChild(deleteButton);
+  const inputGroup1 = document.createElement("div");
+  inputGroup1.classList.add("input-group-access-admin");
 
-                contenedorUsuarios.appendChild(usuarioDiv);
+  const password = document.createElement("label");
+  password.textContent = "Password";
 
-                stateButton.addEventListener('click', () => {
-                    if (stateButton.textContent === 'Inactivo') {
-                        stateButton.textContent = 'Activo';
-                        alert('El estado cambió');
-                    } else {
-                        stateButton.textContent = 'Inactivo';
-                    }
-                });
+  const passwordInput = document.createElement("input");
+  passwordInput.type = "password";
+  passwordInput.placeholder = "Introduce tu password";
+  passwordInput.id = "password-input";
 
-                // Agregar funcionalidad al botón de eliminar usuario
-                deleteButton.addEventListener('click', () => {
-                    if (confirm('¿Está seguro de que quiere eliminar este usuario?')) {
-                        // Aquí deberías agregar la lógica para eliminar el usuario
-                        alert('Usuario eliminado');
-                    }
-                });
+  const button = document.createElement("button");
+  button.classList.add("btn-access-admin");
+  button.textContent = "Login";
 
-            });
-        })
-        .catch(error => {
-            console.error('Error al cargar los datos', error);
-        });
+  header.appendChild(logo);
+  loginBox.appendChild(h2);
+  loginBox.appendChild(form);
+  form.appendChild(inputGroup);
+  inputGroup.appendChild(email);
+  inputGroup.appendChild(emailInput);
+  form.appendChild(inputGroup1);
+  inputGroup1.appendChild(password);
+  inputGroup1.appendChild(passwordInput);
+  form.appendChild(button);
+  app.appendChild(header);
+  app.appendChild(loginBox);
+
+  return form; 
 }
-document.addEventListener('DOMContentLoaded', cargarTodosLosUsuarios);
+
+// Función para agregar eventos y manejar el login
+function addLoginEvent(form) {
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const emailValue = document.getElementById("email-input").value.trim();
+    const passwordValue = document
+      .getElementById("password-input")
+      .value.trim();
+
+    const data = { email: emailValue, password: passwordValue };
+
+    try {
+      const response = await fetch ("http://localhost:3000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        if (result.user.role === "admin") {
+          console.log(result)
+          const token = result.token;
+          console.log(token);
+          localStorage.setItem("token", token);
+
+          if (token) {
+            const app = document.getElementById("app1");
+            app.innerHTML = "";
+            addElementAp6();
+          }
+        } else {
+          alert("No tienes permisos de administrador");
+        }
+      } else {
+        alert("Correo o contraseña incorrectos");
+      }
+    } catch (error) {
+      alert("Error al intentar iniciar sesión");
+      console.error(error);
+    }
+  });
+}
+
+// Inicializar las funciones
+function loginAdm() {
+  const form = createLoginForm(); // Crea el formulario
+  addLoginEvent(form); // Agrega el evento de login
+}
+
+loginAdm();
+// newUserCreate();
+
+// Eliminar usuario
+// async function deleteUser(userId) {
+//   try {
+//     const token = localStorage.getItem("token");
+//     const response = await fetch(`${API_URL}/api/users/${userId}`, {
+//       method: "DELETE",
+//       headers: {
+//         "Authorization": `Bearer ${token}`,
+//         "Content-Type": "application/json"
+//       }
+//     });
+
+//     if (response.ok) {
+//       alert("Usuario eliminado correctamente");
+//       // Recargar la lista de usuarios o actualizar la vista
+//       addElementAp6(); // Asumiendo que esta función actualiza la lista de usuarios
+//     } else {
+//       const error = await response.json();
+//       alert(error.message || "Error al eliminar el usuario");
+//     }
+//   } catch (error) {
+//     console.error("Error al eliminar usuario:", error);
+//     alert("Error al intentar eliminar el usuario");
+//   }
+// }
+
+// function createDeleteButton(userId) {
+//   const deleteBtn = document.createElement("button");
+//   deleteBtn.classList.add("NU-btnBack");
+//   deleteBtn.textContent = "Eliminar";
+  
+//   deleteBtn.addEventListener("click", async () => {
+//     if (confirm("¿Está seguro de que desea eliminar este usuario?")) {
+//       await deleteUser(userId);
+//     }
+//   });
+  
+//   return deleteBtn;
+// }
+
+// // Modificar la función que muestra los usuarios para incluir el botón de eliminar
+// function displayUsers(users) {
+//   const userList = document.createElement("div");
+//   userList.classList.add("user-list");
+
+//   users.forEach(user => {
+//     const userCard = document.createElement("div");
+//     userCard.classList.add("user-card");
+    
+//     // Información del usuario
+//     const userInfo = document.createElement("div");
+//     userInfo.classList.add("user-info");
+//     userInfo.innerHTML = `
+//       <p><strong>Nombre:</strong> ${user.name} ${user.lastname}</p>
+//       <p><strong>Email:</strong> ${user.email}</p>
+//       <p><strong>Teléfono:</strong> ${user.phoneNumber}</p>
+//     `;
+    
+//     // Contenedor de acciones
+//     const actions = document.createElement("div");
+//     actions.classList.add("user-actions");
+//     actions.appendChild(createDeleteButton(user.id));
+    
+//     userCard.appendChild(userInfo);
+//     userCard.appendChild(actions);
+//     userList.appendChild(userCard);
+//   });
+
+//   return userList;
+// }
+
+
+
+
