@@ -1,6 +1,128 @@
 
 import './style.css'
 
+
+// Función para crear los elementos del DOM
+function createLoginForm() {
+  const app = document.getElementById("app1");
+  app.classList.add("container-access-admin");
+
+  const header = document.createElement("header");
+  header.classList.add("header-access-admin");
+
+  const logo = document.createElement("div");
+  logo.textContent = "Rush";
+  logo.classList.add("logo-access-admin");
+
+  const loginBox = document.createElement("div");
+  loginBox.classList.add("login-box-access-admin");
+
+  const h2 = document.createElement("h2");
+  h2.textContent = "Acceso administradores";
+
+  const form = document.createElement("form");
+
+  const inputGroup = document.createElement("div");
+  inputGroup.classList.add("input-group-access-admin");
+
+  const email = document.createElement("label");
+  email.textContent = "Email";
+
+  const emailInput = document.createElement("input");
+  emailInput.type = "email";
+  emailInput.placeholder = "Introduce tu email";
+  emailInput.id = "email-input";
+
+  const inputGroup1 = document.createElement("div");
+  inputGroup1.classList.add("input-group-access-admin");
+
+  const password = document.createElement("label");
+  password.textContent = "Password";
+
+  const passwordInput = document.createElement("input");
+  passwordInput.type = "password";
+  passwordInput.placeholder = "Introduce tu password";
+  passwordInput.id = "password-input";
+
+  const button = document.createElement("button");
+  button.classList.add("btn-access-admin");
+  button.textContent = "Login";
+
+  header.appendChild(logo);
+  loginBox.appendChild(h2);
+  loginBox.appendChild(form);
+  form.appendChild(inputGroup);
+  inputGroup.appendChild(email);
+  inputGroup.appendChild(emailInput);
+  form.appendChild(inputGroup1);
+  inputGroup1.appendChild(password);
+  inputGroup1.appendChild(passwordInput);
+  form.appendChild(button);
+  app.appendChild(header);
+  app.appendChild(loginBox);
+
+  return form; 
+}
+
+
+
+// Función para agregar eventos y manejar el login
+function addLoginEvent(form) {
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const emailValue = document.getElementById("email-input").value.trim();
+    const passwordValue = document
+      .getElementById("password-input")
+      .value.trim();
+
+    const data = { email: emailValue, password: passwordValue };
+
+    try {
+      const response = await fetch("http://localhost:3000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        if (result.user.role === "admin") {
+          console.log(result)
+          const token = result.token;
+          console.log(token);
+          localStorage.setItem("token", token);
+
+          if (token) {
+            const app = document.getElementById("app1");
+            app.innerHTML = "";
+            addElementAp6();
+          }
+        } else {
+          alert("No tienes permisos de administrador");
+        }
+      } else {
+        alert("Correo o contraseña incorrectos");
+      }
+    } catch (error) {
+      alert("Error al intentar iniciar sesión");
+      console.error(error);
+    }
+  });
+}
+
+// Inicializar las funciones
+function loginAdm() {
+  const form = createLoginForm(); // Crea el formulario
+  addLoginEvent(form); // Agrega el evento de login
+}
+
+loginAdm();
+
+
 const API_URL = "http://localhost:3000";
 
 //CONTENEDORES GENERALES
@@ -347,4 +469,324 @@ function newUserCreate() {
 }
 
 newUserCreate();
+
+// Eliminar usuario
+async function deleteUser(userId) {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await fetch(`${API_URL}/api/users/${userId}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    });
+
+    if (response.ok) {
+      alert("Usuario eliminado correctamente");
+      // Recargar la lista de usuarios o actualizar la vista
+      addElementAp6(); // Asumiendo que esta función actualiza la lista de usuarios
+    } else {
+      const error = await response.json();
+      alert(error.message || "Error al eliminar el usuario");
+    }
+  } catch (error) {
+    console.error("Error al eliminar usuario:", error);
+    alert("Error al intentar eliminar el usuario");
+  }
+}
+
+function createDeleteButton(userId) {
+  const deleteBtn = document.createElement("button");
+  deleteBtn.classList.add("NU-btnBack");
+  deleteBtn.textContent = "Eliminar";
+  
+  deleteBtn.addEventListener("click", async () => {
+    if (confirm("¿Está seguro de que desea eliminar este usuario?")) {
+      await deleteUser(userId);
+    }
+  });
+  
+  return deleteBtn;
+}
+
+// Modificar la función que muestra los usuarios para incluir el botón de eliminar
+function displayUsers(users) {
+  const userList = document.createElement("div");
+  userList.classList.add("user-list");
+
+  users.forEach(user => {
+    const userCard = document.createElement("div");
+    userCard.classList.add("user-card");
+    
+    // Información del usuario
+    const userInfo = document.createElement("div");
+    userInfo.classList.add("user-info");
+    userInfo.innerHTML = `
+      <p><strong>Nombre:</strong> ${user.name} ${user.lastname}</p>
+      <p><strong>Email:</strong> ${user.email}</p>
+      <p><strong>Teléfono:</strong> ${user.phoneNumber}</p>
+    `;
+    
+    // Contenedor de acciones
+    const actions = document.createElement("div");
+    actions.classList.add("user-actions");
+    actions.appendChild(createDeleteButton(user.id));
+    
+    userCard.appendChild(userInfo);
+    userCard.appendChild(actions);
+    userList.appendChild(userCard);
+  });
+
+  return userList;
+}
+
+
+
+async function updateUser(id, updatedUser) {
+  const token = localStorage.getItem("jwtToken");
+
+  // Si no hay token, no debería permitir hacer la actualización
+  if (!token) {
+    alert("No estás autenticado. Inicia sesión.");
+    return;
+  }
+
+  try {
+    const url = `${API_URL}/api/user/${id}`;
+    const response = await fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify(updatedUser),
+    });
+
+    if (!response.ok) {
+      throw new Error("Error al actualizar el usuario");
+    }
+
+    alert("Usuario actualizado correctamente");
+    loadUsers(); 
+  } catch (error) {
+    console.error(error);
+    alert("Error al actualizar el usuario");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const containerDetails = document.querySelector(".container-details");
+
+  const cardDetails = document.createElement("div");
+  cardDetails.classList.add("card-details");
+
+  const topDetails = document.createElement("div");
+  topDetails.classList.add("top-details");
+  topDetails.id = "top";
+
+  const exitButton = document.createElement("button");
+  exitButton.classList.add("exit-details");
+  exitButton.textContent = "X";
+
+  exitButton.addEventListener("click", () => {
+    try {
+      if (!containerDetails) {
+        throw new Error("No se encuentra el contenedor.");
+      }
+      containerDetails.style.display = "none";
+      containerAp6.style.display = "block"; // Asegúrate de tener el contenedor 'containerAp6' correctamente definido.
+      addElementAp6();
+      console.log("Has vuelto a la página anterior");
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  });
+
+  const titleDetails = document.createElement("p");
+  titleDetails.classList.add("title-details");
+  titleDetails.textContent = "MI PERFIL";
+
+  const formularioDetails = document.createElement("form");
+  formularioDetails.id = "formulario-details";
+  formularioDetails.classList.add("formulario-details");
+
+  function createInputField(labelText, inputType, inputId) {
+    const cardList = document.createElement("div");
+    cardList.classList.add("card-list-details");
+
+    const label = document.createElement("label");
+    label.classList.add("sub_title");
+    label.setAttribute("for", inputId);
+    label.textContent = labelText;
+
+    const input = document.createElement("input");
+    input.classList.add("card-style-details");
+    input.type = inputType;
+    input.id = inputId;
+    input.placeholder = "";
+
+    cardList.appendChild(label);
+    cardList.appendChild(input);
+
+    return cardList;
+  }
+
+  // Añadir los campos del formulario
+  formularioDetails.appendChild(createInputField("Nombre", "text", "name"));
+  formularioDetails.appendChild(createInputField("Apellidos", "text", "apellidos"));
+  formularioDetails.appendChild(createInputField("E-mail", "email", "email"));
+  formularioDetails.appendChild(createInputField("Calle", "text", "street"));
+  formularioDetails.appendChild(createInputField("Código Postal", "text", "postal"));
+  formularioDetails.appendChild(createInputField("Ciudad", "text", "city"));
+  formularioDetails.appendChild(createInputField("Teléfono", "tel", "phone"));
+  formularioDetails.appendChild(createInputField("Suscripción", "text", "subscription"));
+
+  // Botón de Editar y Guardar
+  const buttonEndDetails = document.createElement("div");
+  buttonEndDetails.classList.add("button-end-details");
+
+  const buttonEditar = document.createElement("button");
+  buttonEditar.classList.add("button-details");
+  buttonEditar.textContent = "EDITAR";
+  buttonEditar.type = "button";
+
+  const buttonGuardar = document.createElement("button");
+  buttonGuardar.classList.add("button-details");
+  buttonGuardar.textContent = "GUARDAR";
+  buttonGuardar.style.display = "none";
+
+  buttonEditar.addEventListener("click", () => {
+    // Habilitar los campos para edición
+    nameField.disabled = false;
+    apellidosField.disabled = false;
+    emailField.disabled = false;
+    streetField.disabled = false;
+    postalField.disabled = false;
+    cityField.disabled = false;
+    phoneField.disabled = false;
+    subscriptionField.disabled = false;
+
+    buttonEditar.style.display = "none";
+    buttonGuardar.style.display = "inline-block";
+  });
+
+  buttonGuardar.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    // Obtener los nuevos valores del formulario
+    const updatedUser = {
+      name: nameField.value,
+      lastname: apellidosField.value,
+      email: emailField.value,
+      road: streetField.value,
+      postCode: postalField.value,
+      city: cityField.value,
+      phoneNumber: phoneField.value,
+      subscription: subscriptionField.value,
+    };
+
+    const changedValues = {
+      name: nameField.value !== originalValues.name,
+      apellidos: apellidosField.value !== originalValues.apellidos,
+      email: emailField.value !== originalValues.email,
+      street: streetField.value !== originalValues.street,
+      postal: postalField.value !== originalValues.postal,
+      city: cityField.value !== originalValues.city,
+      phone: phoneField.value !== originalValues.phone,
+      subscription: subscriptionField.value !== originalValues.subscription,
+    };
+    const anyChanges = Object.values(changedValues).includes(true);
+
+    if (anyChanges) {
+      alert("Cambios guardados exitosamente!");
+      updateUser(id, updatedUser); // Llamar a la función de actualización del usuario
+    } else {
+      alert("No se han realizado cambios.");
+    }
+
+    // Deshabilitar campos después de guardar
+    nameField.disabled = true;
+    apellidosField.disabled = true;
+    emailField.disabled = true;
+    streetField.disabled = true;
+    postalField.disabled = true;
+    cityField.disabled = true;
+    phoneField.disabled = true;
+    subscriptionField.disabled = true;
+
+    buttonGuardar.style.display = "none";
+    buttonEditar.style.display = "inline-block";
+  });
+
+  document.body.appendChild(exitButton);
+  topDetails.appendChild(exitButton);
+  topDetails.appendChild(titleDetails);
+  buttonEndDetails.appendChild(buttonEditar);
+  buttonEndDetails.appendChild(buttonGuardar);
+  formularioDetails.appendChild(buttonEndDetails);
+  cardDetails.appendChild(topDetails);
+  cardDetails.appendChild(formularioDetails);
+  containerDetails.appendChild(cardDetails);
+
+  const app = document.querySelector("#app");
+  app.appendChild(containerDetails);
+
+  // Campos del formulario
+  const nameField = document.getElementById("name");
+  const apellidosField = document.getElementById("apellidos");
+  const emailField = document.getElementById("email");
+  const streetField = document.getElementById("street");
+  const postalField = document.getElementById("postal");
+  const cityField = document.getElementById("city");
+  const phoneField = document.getElementById("phone");
+  const subscriptionField = document.getElementById("subscription");
+
+  const originalValues = {
+    name: nameField.value,
+    apellidos: apellidosField.value,
+    email: emailField.value,
+    street: streetField.value,
+    postal: postalField.value,
+    city: cityField.value,
+    phone: phoneField.value,
+    subscription: subscriptionField.value,
+  };
+
+  // Acción para enviar el formulario (submit)
+  formularioDetails.addEventListener("submit", async (event) => {
+    event.preventDefault(); // Evitar el comportamiento predeterminado
+
+    const updatedUser = {
+      name: nameField.value,
+      lastname: apellidosField.value,
+      email: emailField.value,
+      road: streetField.value,
+      postCode: postalField.value,
+      city: cityField.value,
+      phoneNumber: phoneField.value,
+      subscription: subscriptionField.value,
+    };
+
+    const changedValues = {
+      name: nameField.value !== originalValues.name,
+      apellidos: apellidosField.value !== originalValues.apellidos,
+      email: emailField.value !== originalValues.email,
+      street: streetField.value !== originalValues.street,
+      postal: postalField.value !== originalValues.postal,
+      city: cityField.value !== originalValues.city,
+      phone: phoneField.value !== originalValues.phone,
+      subscription: subscriptionField.value !== originalValues.subscription,
+    };
+
+    const anyChanges = Object.values(changedValues).includes(true);
+
+    if (anyChanges) {
+      alert("¡Datos actualizados!");
+      await updateUser(id, updatedUser); // Llamar a la función de actualización
+    } else {
+      alert("No se detectaron cambios.");
+    }
+  });
+});
 
