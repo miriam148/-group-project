@@ -1,5 +1,5 @@
-
-// import './style.css'
+import { deleteContainerAP6, deleteContainerDetails, deleteContainerNewUser, deleteAlert } from "./utils/utils"
+import { nameNewUser, lastnameNewUser, roadNewUser, postCodeNewUser, cityNewUser, phoneNumberNewUser, emailNewUser, passwordNewUser, subscriptionNewUser, roleNewUser } from "./New_User/elements";
 
 const API_URL = "http://localhost:3000/api";
 
@@ -10,24 +10,7 @@ const containerAp6 = document.querySelector("#containerAp6");
 const containerUserNew = document.querySelector("#containerNewUser");
 const containerDetails = document.querySelector("#containerDetails");
 
-
-// FUNCIONES DE BORRADO
-
-function deleteContainerAP6() {
-  const container = document.querySelector("#containerAp6");
-  container.innerHTML = "";
-}
-function deleteContainerNewUser() {
-  const containerNU = document.querySelector("#containerNewUser");
-  containerNU.innerHTML = "";
-}
-
-function deleteAlert() {
-  const container = document.querySelector("#alertaContainer");
-  container.innerHTML = "";
-}
-
-//FUNCIONES ALERTA
+//Inicio contenido Nuevo Usuario
 function cerrarAlerta() {
   const containerAlerta = document.querySelector("#alertaContainer");
   if (containerAlerta) {
@@ -225,86 +208,6 @@ function buttonsBackNewUser() {
   return commandsBackNU;
 }
 
-function nameNewUser() {
-  const nameNU = document.createElement("input");
-  nameNU.id = "nameNewUserInput";
-  nameNU.classList = "NU-title";
-  nameNU.placeholder = "Nombre";
-  return nameNU;
-}
-
-function lastnameNewUser() {
-  const lastnameNU = document.createElement("input");
-  lastnameNU.id = "lastnameNewUserInput";
-  lastnameNU.classList = "NU-title";
-  lastnameNU.placeholder = "Apellidos";
-  return lastnameNU;
-}
-
-function roadNewUser() {
-  const roadNU = document.createElement("input");
-  roadNU.id = "roadNewUserInput";
-  roadNU.classList = "NU-title";
-  roadNU.placeholder = "Direccion";
-  return roadNU;
-}
-
-function postCodeNewUser() {
-  const postCodeNU = document.createElement("input");
-  postCodeNU.id = "postCodeNewUserInput";
-  postCodeNU.classList = "NU-title";
-  postCodeNU.placeholder = "Codigo Postal";
-  return postCodeNU;
-}
-
-function cityNewUser() {
-  const cityNU = document.createElement("input");
-  cityNU.id = "cityNewUserInput";
-  cityNU.classList = "NU-title";
-  cityNU.placeholder = "Ciudad";
-  return cityNU;
-}
-
-function phoneNumberNewUser() {
-  const phoneNumberNU = document.createElement("input");
-  phoneNumberNU.id = "phoneNumberNewUserInput";
-  phoneNumberNU.classList = "NU-title";
-  phoneNumberNU.placeholder = "Teléfono";
-  return phoneNumberNU;
-}
-
-function emailNewUser() {
-  const emailNU = document.createElement("input");
-  emailNU.id = "emailNewUserInput";
-  emailNU.classList = "NU-title";
-  emailNU.placeholder = "pepe@example.com";
-  return emailNU;
-}
-
-function passwordNewUser() {
-  const passwordNU = document.createElement("input");
-  passwordNU.id = "passwordNewUserInput";
-  passwordNU.classList = "NU-title";
-  passwordNU.placeholder = "Password";
-  return passwordNU;
-}
-
-function subscriptionNewUser() {
-  const subscriptionNU = document.createElement("input");
-  subscriptionNU.id = "subscriptionNewUserInput";
-  subscriptionNU.classList = "NU-title";
-  subscriptionNU.placeholder = "Mensual, Semestral, Anual, N/A";
-  return subscriptionNU;
-}
-
-function roleNewUser() {
-  const roleNU = document.createElement("input");
-  roleNU.id = "roleNewUserInput";
-  roleNU.classList = "NU-title";
-  roleNU.placeholder = "user/admin";
-  return roleNU;
-}
-
 function newUserCreate() {
   const containNewUser = document.createElement("div");
 
@@ -337,9 +240,9 @@ function newUserCreate() {
   const app = document.querySelector("#app");
   app.appendChild(containerNU);
 }
+//Fin contenido Nuevo Usuario
 
-
-
+//Inicio contenido Detalles de Usuario
 async function updateUser(idUser, updatedUser) {
   const token = localStorage.getItem("jwtToken");
 
@@ -372,7 +275,6 @@ async function updateUser(idUser, updatedUser) {
     alert("Error al actualizar el usuario");
   }
 }
-
 
 document.addEventListener("DOMContentLoaded", function () {
   const containerDetails = document.querySelector(".container-details");
@@ -588,8 +490,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+//Fin contenido de Detalles de usuario
 
-
+//Inicio contenido Vista General de Admin
 function addElementAp6() {
   const containerAp6 = document.querySelector('#containerAp6');
   containerAp6.classList.add('containerAdmin');
@@ -638,6 +541,7 @@ loginAdm()
   containerAp6.appendChild(divContainer);
   app.appendChild(containerAp6);
 }
+
 function cargarTodosLosUsuarios() {
   const url = `${API_URL}/users`; 
 
@@ -654,12 +558,29 @@ function cargarTodosLosUsuarios() {
         usuarioDiv.classList.add('usuario-admin');
         usuarioDiv.id = `usuario-${usuario._id}`;
 
+        const fullname = document.createElement('div')
+        fullname.classList.add('fullname-admin');
+
         const name = document.createElement('p');
-        name.textContent = `Nombre: ${usuario.name}`;
-        const id = document.createElement('p');
-        id.textContent = `ID: ${usuario._id}`;
+        name.textContent = `${usuario.name}`;
+
+        const lastname = document.createElement('p');
+        lastname.textContent = `${usuario.lastname}`;
+
+        fullname.appendChild(name)
+        fullname.appendChild(lastname)
+        // const id = document.createElement('p');
+        // id.textContent = `ID: ${usuario._id}`;
+        const emailAdmin = document.createElement('div')
+        emailAdmin.classList.add('email-admin');
+
         const email = document.createElement('p');
         email.textContent = `Email: ${usuario.email}`;
+
+        emailAdmin.appendChild(email)
+
+        const buttonsDiv = document.createElement('div')
+        buttonsDiv.classList.add('button-admin');
 
         const modifyButton = document.createElement('button');
         modifyButton.textContent = 'Modificar';
@@ -669,12 +590,19 @@ function cargarTodosLosUsuarios() {
         deleteButton.textContent = 'Eliminar';
         deleteButton.classList.add('button-del-admin');
 
-        usuarioDiv.appendChild(name);
-        usuarioDiv.appendChild(id);
-        usuarioDiv.appendChild(email);
-        usuarioDiv.appendChild(modifyButton);
-        usuarioDiv.appendChild(deleteButton);
+        buttonsDiv.appendChild(modifyButton)
+        buttonsDiv.appendChild(deleteButton)
 
+        usuarioDiv.appendChild(fullname);
+        // usuarioDiv.appendChild(name);
+        // usuarioDiv.appendChild(lastname);
+        // usuarioDiv.appendChild(id);
+        usuarioDiv.appendChild(emailAdmin);
+        // usuarioDiv.appendChild(email);
+        // usuarioDiv.appendChild(modifyButton);
+        // usuarioDiv.appendChild(deleteButton);
+        usuarioDiv.appendChild(buttonsDiv);
+        
         contenedorUsuarios.appendChild(usuarioDiv);
 
         deleteButton.addEventListener('click', () => {
@@ -718,10 +646,9 @@ function cargarTodosLosUsuarios() {
 }
 
 document.addEventListener('DOMContentLoaded', cargarTodosLosUsuarios);
+// Fin contenido Vista General de Admin
 
-
-
-
+//Inicio contenido Login Admin
 // Función para crear los elementos del DOM
 function createLoginForm() {
   const app = document.getElementById("app1");
@@ -838,9 +765,9 @@ function loginAdm() {
   const form = createLoginForm(); // Crea el formulario
   addLoginEvent(form); // Agrega el evento de login
 }
+//Fin contenido Login Admin
 
 loginAdm();
-// newUserCreate();
 
 // Eliminar usuario
 // async function deleteUser(userId) {
