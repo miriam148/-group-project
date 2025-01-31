@@ -492,59 +492,57 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 //Fin contenido de Detalles de usuario
 
-//Inicio contenido Vista General de Admin
 function addElementAp6() {
+
   const containerAp6 = document.querySelector('#containerAp6');
-  containerAp6.classList.add('containerAdmin');
-
-  const divContainer = document.createElement('div');
-  divContainer.classList.add('user-admin');
-  divContainer.id = 'user-admin';
-
-  containerAp6.appendChild(divContainer);
-
-  const usuarios = document.createElement('h2');
-  usuarios.classList.add('us-admin')
-  usuarios.textContent = 'Usuarios';
-
-  const firstButton = document.createElement('button');
-  firstButton.classList.add('access-admin');
-  firstButton.textContent = 'Nuevo Usuario';
-firstButton.addEventListener("click", ()=>{
-  deleteContainerAP6();
-  containerAp6.style.display = "none";
-  containerUserNew.style.display = "block";
-  newUserCreate()
-})
-
-
-  const secondButton = document.createElement('button');
-  secondButton.classList.add('close-admin');
-  secondButton.textContent = 'Log out';
-secondButton.addEventListener("click", ()=>{
-deleteContainerAP6(),
-containerAp6.style.display = "none";
-app1.style.display = "block";
-loginAdm()
-})
+    containerAp6.innerHTML = "";
+    containerAp6.classList.add('containerAdmin');
   
-  divContainer.appendChild(usuarios);
-  divContainer.appendChild(firstButton);
-  divContainer.appendChild(secondButton);
-
-
-
-  // const userList = document.createElement('div');
-  // userList.classList.add('userList-admin');
+    const divContainer = document.createElement('div');
+    divContainer.classList.add('user-admin');
+    divContainer.id = 'user-admin';
   
-  // containerAp6.appendChild(userList);
-  containerAp6.appendChild(divContainer);
-  app.appendChild(containerAp6);
-}
-
-function cargarTodosLosUsuarios() {
-  const url = `${API_URL}/users`; 
-
+    // containerAp6.appendChild(divContainer);
+  
+    const usuarios = document.createElement('h2');
+    usuarios.classList.add('us-admin')
+    usuarios.textContent = 'Usuarios';
+  
+    const firstButton = document.createElement('button');
+    firstButton.classList.add('access-admin');
+    firstButton.textContent = 'Nuevo Usuario';
+    firstButton.addEventListener("click", ()=>{
+    deleteContainerAP6();
+    containerAp6.style.display = "none";
+    containerUserNew.style.display = "block";
+    newUserCreate()
+  })
+  
+  
+    const secondButton = document.createElement('button');
+    secondButton.classList.add('close-admin');
+    secondButton.textContent = 'Log out';
+    secondButton.addEventListener("click", ()=>{
+      deleteContainerAP6(),
+      containerAp6.style.display = "none";
+      app1.style.display = "block";
+      loginAdm()
+      
+  })
+    
+    divContainer.appendChild(usuarios);
+    divContainer.appendChild(firstButton);
+    divContainer.appendChild(secondButton);
+  
+  
+    // const userList = document.createElement('div');
+    // userList.classList.add('userList-admin');
+    
+    // containerAp6.appendChild(userList);
+    
+    
+    const url = `${API_URL}/users`; 
+    
   fetch(url)
     .then(response => response.json()) 
     .then(data => {
@@ -634,8 +632,10 @@ function cargarTodosLosUsuarios() {
           phoneField.value = usuario.phoneNumber;
           subscriptionField.value = usuario.subscription;
         });
-
-       
+        
+        
+        containerAp6.appendChild(divContainer);
+        // app.appendChild(containerAp6);
         containerAp6.appendChild(contenedorUsuarios);
         app.appendChild(containerAp6);
       });
@@ -645,7 +645,7 @@ function cargarTodosLosUsuarios() {
     });
 }
 
-document.addEventListener('DOMContentLoaded', cargarTodosLosUsuarios);
+//document.addEventListener('DOMContentLoaded', addElementAp6);
 // Fin contenido Vista General de Admin
 
 //Inicio contenido Login Admin
