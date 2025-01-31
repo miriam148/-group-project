@@ -274,7 +274,7 @@ async function updateUser(idUser, updatedUser) {
     console.log(result)
 
     alert("Usuario actualizado correctamente");
-    cargarTodosLosUsuarios();
+    addElementAp6();
   } catch (error) {
     console.error(error);
     alert("Error al actualizar el usuario");
