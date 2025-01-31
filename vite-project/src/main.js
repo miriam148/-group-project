@@ -2,6 +2,7 @@ import { deleteContainerAP6, deleteContainerDetails, deleteContainerNewUser, del
 import { nameNewUser, lastnameNewUser, roadNewUser, postCodeNewUser, cityNewUser, phoneNumberNewUser, emailNewUser, passwordNewUser, subscriptionNewUser, roleNewUser } from "./New_User/elements";
 
 const API_URL = "http://localhost:3000/api";
+let currentUser = null;
 
 //CONTENEDORES GENERALES
 const app = document.querySelector("#app")
@@ -244,22 +245,24 @@ function newUserCreate() {
 
 //Inicio contenido Detalles de Usuario
 async function updateUser(idUser, updatedUser) {
-  const token = localStorage.getItem("jwtToken");
+  // const token = localStorage.getItem("jwtToken");
 
-  // Si no hay token, no debería permitir hacer la actualización
-  if (!token) {
-    alert("No estás autenticado. Inicia sesión.");
-    return;
-  }
+  // // Si no hay token, no debería permitir hacer la actualización
+  // if (!token) {
+  //   alert("No estás autenticado. Inicia sesión.");
+  //   return;
+  // }
 
   try {
     const url = `${API_URL}/users/${idUser}`;
+    console.log(url)
+    console.log(updatedUser)
 
     const response = await fetch(url, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        // "Authorization": `Bearer ${token}`,
       },
       body: JSON.stringify(updatedUser),
     });
@@ -267,9 +270,11 @@ async function updateUser(idUser, updatedUser) {
     if (!response.ok) {
       throw new Error("Error al actualizar el usuario");
     }
+    const result = await response.json()
+    console.log(result)
 
     alert("Usuario actualizado correctamente");
-    loadUsers();
+    cargarTodosLosUsuarios();
   } catch (error) {
     console.error(error);
     alert("Error al actualizar el usuario");
@@ -401,8 +406,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (anyChanges) {
       alert("Cambios guardados exitosamente!");
-      updateUser(idUser, updatedUser); // Llamar a la función de actualización del usuario
-    } else {
+      updateUser(currentUser, updatedUser); 
+      try {
+        if (!containerDetails) {
+          throw new Error("No se encuentra el contenedor.");
+        }
+        containerDetails.style.display = "none";
+        containerAp6.style.display = "block"; // Asegúrate de tener el contenedor 'containerAp6' correctamente definido.
+        addElementAp6();
+        console.log("Has vuelto a la página anterior");
+      } catch (error) {
+        console.error("Error:", error.message);
+      }    } else {
       alert("No se han realizado cambios.");
     }
 
@@ -550,6 +565,7 @@ function addElementAp6() {
       const contenedorUsuarios = document.createElement('div');
       contenedorUsuarios.innerHTML = '';
 
+
       data.forEach(usuario => {
       
         const usuarioDiv = document.createElement('div');
@@ -567,8 +583,8 @@ function addElementAp6() {
 
         fullname.appendChild(name)
         fullname.appendChild(lastname)
-        // const id = document.createElement('p');
-        // id.textContent = `ID: ${usuario._id}`;
+        const id = document.createElement('p');
+        id.textContent = `ID: ${usuario._id}`;
         const emailAdmin = document.createElement('div')
         emailAdmin.classList.add('email-admin');
 
@@ -594,7 +610,7 @@ function addElementAp6() {
         usuarioDiv.appendChild(fullname);
         // usuarioDiv.appendChild(name);
         // usuarioDiv.appendChild(lastname);
-        // usuarioDiv.appendChild(id);
+        usuarioDiv.appendChild(id);
         usuarioDiv.appendChild(emailAdmin);
         // usuarioDiv.appendChild(email);
         // usuarioDiv.appendChild(modifyButton);
@@ -610,7 +626,8 @@ function addElementAp6() {
         });
 
         modifyButton.addEventListener('click', () => {
-  
+          currentUser = usuario._id;
+
           containerAp6.style.display = "none";
           containerDetails.style.display = "block";
 
@@ -623,6 +640,7 @@ function addElementAp6() {
           const phoneField = document.getElementById("phone");
           const subscriptionField = document.getElementById("subscription");
 
+
           nameField.value = usuario.name;
           apellidosField.value = usuario.lastname; 
           emailField.value = usuario.email;
@@ -631,6 +649,7 @@ function addElementAp6() {
           cityField.value = usuario.city;
           phoneField.value = usuario.phoneNumber;
           subscriptionField.value = usuario.subscription;
+
         });
         
         
