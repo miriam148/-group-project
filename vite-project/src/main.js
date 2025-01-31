@@ -638,93 +638,88 @@ loginAdm()
   containerAp6.appendChild(divContainer);
   app.appendChild(containerAp6);
 }
-
 function cargarTodosLosUsuarios() {
-  // URL de la API donde están los datos
-  const url = `${API_URL}/users`; // Reemplaza con la URL correcta de tu API.
+  const url = `${API_URL}/users`; 
 
-  // Hacemos la petición a la API
   fetch(url)
-      .then(response => response.json()) // Convertimos la respuesta en JSON
-      .then(data => {
+    .then(response => response.json()) 
+    .then(data => {
       
-          // const contenedorUsuarios = document.querySelector('.userList-admin');
-          const contenedorUsuarios = document.createElement('div');
-          
-          contenedorUsuarios.innerHTML = '';
+      const contenedorUsuarios = document.createElement('div');
+      contenedorUsuarios.innerHTML = '';
 
-          data.forEach(usuario => {
-           
-              const usuarioDiv = document.createElement('div');
-              usuarioDiv.classList.add('usuario-admin');
-              usuarioDiv.id = `usuario-${usuario._id}`;
-              usuarioDiv.addEventListener("click", () => {
-                deleteContainerAP6();
-                // Ocultar contenedor ap6 y mostrar contenedor detalles
-                // document.querySelector('.container-admin').style.display = "none";
-                // const containerDetails = document.querySelector("#containerDetails");
-                containerAp6.style.display = "none"
-                containerDetails.style.display = "block";  // Mostrar contenedor de detalles
-              containerDetails;
-              });
+      data.forEach(usuario => {
+      
+        const usuarioDiv = document.createElement('div');
+        usuarioDiv.classList.add('usuario-admin');
+        usuarioDiv.id = `usuario-${usuario._id}`;
 
-              const name = document.createElement('p');
-              name.textContent = `Nombre: ${usuario.name}`;
-              const id = document.createElement('p');
-              id.textContent = `ID: ${usuario._id}`;
-              const email = document.createElement('p');
-              email.textContent = `Email: ${usuario.email}`;
+        const name = document.createElement('p');
+        name.textContent = `Nombre: ${usuario.name}`;
+        const id = document.createElement('p');
+        id.textContent = `ID: ${usuario._id}`;
+        const email = document.createElement('p');
+        email.textContent = `Email: ${usuario.email}`;
 
-              // Crear los botones
-              const stateButton = document.createElement('button');
-              stateButton.textContent = 'Inactivo';
-              stateButton.classList.add('state-admin');
+        const modifyButton = document.createElement('button');
+        modifyButton.textContent = 'Modificar';
+        modifyButton.classList.add('button-mod-admin');
 
-              const modifyButton = document.createElement('button');
-              modifyButton.textContent = 'Modificar';
-              modifyButton.classList.add('button-mod-admin');
-           
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Eliminar';
+        deleteButton.classList.add('button-del-admin');
 
-              const deleteButton = document.createElement('button');
-              deleteButton.textContent = 'Eliminar';
-              deleteButton.classList.add('button-del-admin');
+        usuarioDiv.appendChild(name);
+        usuarioDiv.appendChild(id);
+        usuarioDiv.appendChild(email);
+        usuarioDiv.appendChild(modifyButton);
+        usuarioDiv.appendChild(deleteButton);
 
-         
-              usuarioDiv.appendChild(name);
-              usuarioDiv.appendChild(id);
-              usuarioDiv.appendChild(email);
-              usuarioDiv.appendChild(stateButton);
-              usuarioDiv.appendChild(modifyButton);
-              usuarioDiv.appendChild(deleteButton);
+        contenedorUsuarios.appendChild(usuarioDiv);
 
-              contenedorUsuarios.appendChild(usuarioDiv);
+        deleteButton.addEventListener('click', () => {
+          if (confirm('¿Está seguro de que quiere eliminar este usuario?')) {
+            alert('Usuario eliminado');
+          }
+        });
 
-              stateButton.addEventListener('click', () => {
-                  if (stateButton.textContent === 'Inactivo') {
-                      stateButton.textContent = 'Activo';
-                      alert('El estado cambió');
-                  } else {
-                      stateButton.textContent = 'Inactivo';
-                  }
-              });
+        modifyButton.addEventListener('click', () => {
+  
+          containerAp6.style.display = "none";
+          containerDetails.style.display = "block";
 
-              // Agregar funcionalidad al botón de eliminar usuario
-              deleteButton.addEventListener('click', () => {
-                  if (confirm('¿Está seguro de que quiere eliminar este usuario?')) {
-                      // Aquí deberías agregar la lógica para eliminar el usuario
-                      alert('Usuario eliminado');
-                  }
-              });
+          const nameField = document.getElementById("name");
+          const apellidosField = document.getElementById("apellidos");
+          const emailField = document.getElementById("email");
+          const streetField = document.getElementById("street");
+          const postalField = document.getElementById("postal");
+          const cityField = document.getElementById("city");
+          const phoneField = document.getElementById("phone");
+          const subscriptionField = document.getElementById("subscription");
 
-              containerAp6.appendChild(contenedorUsuarios);
-              app.appendChild(containerAp6);
-          });
-      })
-      .catch(error => {
-          console.error('Error al cargar los datos', error);
+          nameField.value = usuario.name;
+          apellidosField.value = usuario.lastname; 
+          emailField.value = usuario.email;
+          streetField.value = usuario.road; 
+          postalField.value = usuario.postCode;
+          cityField.value = usuario.city;
+          phoneField.value = usuario.phoneNumber;
+          subscriptionField.value = usuario.subscription;
+        });
+
+       
+        containerAp6.appendChild(contenedorUsuarios);
+        app.appendChild(containerAp6);
       });
+    })
+    .catch(error => {
+      console.error('Error al cargar los datos', error);
+    });
 }
+
 document.addEventListener('DOMContentLoaded', cargarTodosLosUsuarios);
+
+
 
 
 // Función para crear los elementos del DOM
