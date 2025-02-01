@@ -215,10 +215,6 @@ function newUserCreate() {
   const elementsNewUser = document.createElement("div");
   elementsNewUser.classList = "NU-containerElements";
 
-  const titleNU = document.createElement("div");
-  titleNU.classList = "NU-mainTitle";
-  titleNU.textContent = "Nuevo Usuario";
-
   elementsNewUser.appendChild(nameNewUser());
   elementsNewUser.appendChild(lastnameNewUser());
   elementsNewUser.appendChild(roadNewUser());
@@ -232,7 +228,7 @@ function newUserCreate() {
   elementsNewUser.appendChild(buttonsActionNewUser());
 
   containNewUser.appendChild(buttonsBackNewUser());
-  containNewUser.appendChild(titleNU);
+
   containNewUser.appendChild(elementsNewUser);
 
   const containerNU = document.querySelector("#containerNewUser");
@@ -536,7 +532,7 @@ function addElementAp6() {
   
     const secondButton = document.createElement('button');
     secondButton.classList.add('close-admin');
-    secondButton.textContent = 'Log out';
+    secondButton.textContent = 'Cerrar sesión';
     secondButton.addEventListener("click", ()=>{
       deleteContainerAP6(),
       containerAp6.style.display = "none";
@@ -583,8 +579,8 @@ function addElementAp6() {
 
         fullname.appendChild(name)
         fullname.appendChild(lastname)
-        const id = document.createElement('p');
-        id.textContent = `ID: ${usuario._id}`;
+        // const id = document.createElement('p');
+        // id.textContent = `ID: ${usuario._id}`;
         const emailAdmin = document.createElement('div')
         emailAdmin.classList.add('email-admin');
 
@@ -610,7 +606,7 @@ function addElementAp6() {
         usuarioDiv.appendChild(fullname);
         // usuarioDiv.appendChild(name);
         // usuarioDiv.appendChild(lastname);
-        usuarioDiv.appendChild(id);
+        // usuarioDiv.appendChild(id);
         usuarioDiv.appendChild(emailAdmin);
         // usuarioDiv.appendChild(email);
         // usuarioDiv.appendChild(modifyButton);
@@ -712,7 +708,7 @@ function createLoginForm() {
 
   const button = document.createElement("button");
   button.classList.add("btn-access-admin");
-  button.textContent = "Login";
+  button.textContent = "Acceder";
 
   header.appendChild(logo);
   loginBox.appendChild(h2);
